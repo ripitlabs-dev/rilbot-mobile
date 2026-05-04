@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rip It Labs — Technical Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; font-size: 13px; color: #1e293b; background: #ffffff; line-height: 1.6; }
+
+.page { max-width: 960px; margin: 0 auto; padding: 0 32px 48px; }
+
+/* Header */
+.header { background: #0f172a; color: #ffffff; padding: 32px; margin: 0 -32px 36px; }
+.header-inner { display: flex; justify-content: space-between; align-items: flex-end; }
+.header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+.header h2 { font-size: 14px; font-weight: 400; color: #94a3b8; margin-top: 4px; }
+.header-meta { text-align: right; font-size: 11px; color: #64748b; }
+.header-meta span { display: block; }
+.badge { display: inline-block; background: #2563eb; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; letter-spacing: 0.5px; }
+
+/* Sections */
+.section { margin-bottom: 36px; }
+.section-title { font-size: 15px; font-weight: 700; color: #0f172a; padding-bottom: 8px; border-bottom: 2px solid #2563eb; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+.section-num { background: #2563eb; color: #fff; font-size: 11px; font-weight: 700; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Architecture Diagram */
+.arch { display: flex; flex-direction: column; gap: 0; }
+.arch-layer { display: flex; align-items: stretch; }
+.layer-label { width: 130px; flex-shrink: 0; font-size: 10px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; padding-right: 12px; text-align: right; justify-content: flex-end; }
+.layer-content { flex: 1; padding: 10px 0; }
+.layer-arrow { width: 130px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 18px; padding: 4px 0; }
+.boxes { display: flex; gap: 8px; flex-wrap: wrap; }
+.box { padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; text-align: center; border: 1.5px solid; flex: 1; min-width: 100px; }
+.box-blue  { background: #eff6ff; border-color: #2563eb; color: #1d4ed8; }
+.box-slate { background: #f8fafc; border-color: #94a3b8; color: #475569; }
+.box-purple{ background: #faf5ff; border-color: #7c3aed; color: #5b21b6; }
+.box-green { background: #f0fdf4; border-color: #16a34a; color: #15803d; }
+.box-amber { background: #fffbeb; border-color: #d97706; color: #b45309; }
+.box-dark  { background: #0f172a; border-color: #334155; color: #e2e8f0; }
+
+.connector { text-align: center; color: #94a3b8; font-size: 16px; padding: 2px 0; display: flex; align-items: center; }
+.connector::before, .connector::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+.connector span { padding: 0 10px; font-size: 10px; font-weight: 600; color: #94a3b8; letter-spacing: 0.5px; }
+
+.sub-boxes { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.sub-box { padding: 4px 10px; border-radius: 4px; font-size: 11px; background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead tr { background: #0f172a; color: #ffffff; }
+thead th { padding: 9px 12px; text-align: left; font-weight: 600; font-size: 11px; letter-spacing: 0.3px; }
+tbody tr { border-bottom: 1px solid #f1f5f9; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody td { padding: 8px 12px; vertical-align: middle; }
+.status-live { color: #16a34a; font-weight: 600; }
+.status-built { color: #2563eb; font-weight: 600; }
+.highlight-row { background: #eff6ff !important; font-weight: 600; }
+.highlight-row td { color: #1d4ed8; }
+
+/* Cost callout */
+.callout { background: #f0fdf4; border-left: 3px solid #16a34a; padding: 12px 16px; border-radius: 0 6px 6px 0; margin-top: 14px; font-size: 12px; }
+.callout strong { color: #15803d; }
+
+/* Footer */
+.footer { background: #f8fafc; border-top: 1px solid #e2e8f0; margin: 36px -32px 0; padding: 16px 32px; display: flex; justify-content: space-between; font-size: 10px; color: #64748b; }
+
+@media print {
+  body { font-size: 11px; }
+  .page { max-width: 100%; padding: 0 24px 32px; }
+  .header { margin: 0 -24px 28px; }
+  .footer { margin: 28px -24px 0; }
+  .section { margin-bottom: 24px; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-inner">
+      <div>
+        <h1>Rip It Labs — Technical Architecture</h1>
+        <h2>RILBOT AI Agent Marketplace · Investor Due Diligence</h2>
+      </div>
+      <div class="header-meta">
+        <span>Confidential</span>
+        <span>April 2026</span>
+        <span class="badge">TECHNICAL REVIEW</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: System Architecture -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">1</div>
+      System Architecture
+    </div>
+
+    <div class="arch">
+
+      <!-- L1: User -->
+      <div class="arch-layer">
+        <div class="layer-label">Client</div>
+        <div class="layer-content">
+          <div class="boxes">
+            <div class="box box-slate">User / Browser</div>
+            <div class="box box-slate">Mobile Browser</div>
+            <div class="box box-slate">API Client / SDK</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span>HTTPS · Cloudflare CDN + DDoS Protection + TLS</span></div>
+
+      <!-- L2: Frontend -->
+      <div class="arch-layer">
+        <div class="layer-label">Frontend</div>
+        <div class="layer-content">
+          <div class="boxes">
+            <div class="box box-blue">RILBOT Frontend<br><small style="font-weight:400;font-size:10px">React 18 + Vite + TypeScript</small></div>
+          </div>
+          <div class="sub-boxes">
+            <div class="sub-box">Agent Marketplace UI</div>
+            <div class="sub-box">No-Code Builder</div>
+            <div class="sub-box">Job Dashboard</div>
+            <div class="sub-box">Dev Portal</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span>REST / JSON · API Key Auth · CORS</span></div>
+
+      <!-- L3: Backend -->
+      <div class="arch-layer">
+        <div class="layer-label">Backend</div>
+        <div class="layer-content">
+          <div class="boxes">
+            <div class="box box-blue">RILBOT Backend<br><small style="font-weight:400;font-size:10px">FastAPI / Python 3.11</small></div>
+          </div>
+          <div class="sub-boxes">
+            <div class="sub-box">455 Agents Registry</div>
+            <div class="sub-box">Developer API /api/v1/</div>
+            <div class="sub-box">API Key Auth</div>
+            <div class="sub-box">Async Job Queue</div>
+            <div class="sub-box">Webhook Dispatcher</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span>Anthropic Claude API · Streaming · Async</span></div>
+
+      <!-- L4: Orchestration -->
+      <div class="arch-layer">
+        <div class="layer-label">AI Orchestration</div>
+        <div class="layer-content">
+          <div class="boxes">
+            <div class="box box-purple">Router<br><small style="font-weight:400;font-size:10px">Claude Haiku · Intent Classification</small></div>
+            <div class="box box-purple">Specialist Pool<br><small style="font-weight:400;font-size:10px">Claude Sonnet · Parallel Execution</small></div>
+            <div class="box box-purple">Synthesis<br><small style="font-weight:400;font-size:10px">Claude Sonnet · Final Assembly</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span>SQLite Agent Memory · Action Plugin Bus · Twilio Voice</span></div>
+
+      <!-- L5: Shared Infra -->
+      <div class="arch-layer">
+        <div class="layer-label">Shared Infra</div>
+        <div class="layer-content">
+          <div class="boxes">
+            <div class="box box-green">Agent Memory<br><small style="font-weight:400;font-size:10px">SQLite (→ PostgreSQL)</small></div>
+            <div class="box box-green">Action Plugins<br><small style="font-weight:400;font-size:10px">Email / PDF / Webhook</small></div>
+            <div class="box box-green">Voice Interface<br><small style="font-weight:400;font-size:10px">Twilio Integration</small></div>
+            <div class="box box-green">Custom Agents<br><small style="font-weight:400;font-size:10px">User-built via No-Code</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span>Base L2 · ERC-20 · Smart Contract</span></div>
+
+      <!-- L6: Blockchain -->
+      <div class="arch-layer">
+        <div class="layer-label">Blockchain</div>
+        <div class="layer-content">
+          <div class="boxes">
+            <div class="box box-dark">RILCOIN ERC-20<br><small style="font-weight:400;font-size:10px">Base L2 · Agent Credit System</small></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /arch -->
+  </div><!-- /section 1 -->
+
+  <!-- Section 2: Platform Components Table -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">2</div>
+      Platform Components
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Purpose</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>RILBOT Backend</strong></td>
+          <td>FastAPI · Python 3.11 · Uvicorn</td>
+          <td>Core API server, agent registry, job execution engine</td>
+          <td class="status-live">&#10003; Live</td>
+        </tr>
+        <tr>
+          <td><strong>RILBOT Frontend</strong></td>
+          <td>React 18 · Vite · TypeScript</td>
+          <td>Marketplace UI, agent browser, user dashboard</td>
+          <td class="status-live">&#10003; Live</td>
+        </tr>
+        <tr>
+          <td><strong>Agent Memory</strong></td>
+          <td>SQLite (dev) · PostgreSQL (prod)</td>
+          <td>Persistent context, conversation history, user state</td>
+          <td class="status-live">&#10003; Live</td>
+        </tr>
+        <tr>
+          <td><strong>Action Plugins</strong></td>
+          <td>Python modules · REST hooks</td>
+          <td>Email delivery, PDF generation, outbound webhooks</td>
+          <td class="status-live">&#10003; Live</td>
+        </tr>
+        <tr>
+          <td><strong>Developer API</strong></td>
+          <td>REST /api/v1/ · API key auth · OpenAPI docs</td>
+          <td>Third-party integrations, programmatic agent access</td>
+          <td class="status-live">&#10003; Live</td>
+        </tr>
+        <tr>
+          <td><strong>Voice Interface</strong></td>
+          <td>Twilio Programmable Voice</td>
+          <td>Phone-in agent queries, voice-activated automation</td>
+          <td class="status-built">&#10003; Built</td>
+        </tr>
+        <tr>
+          <td><strong>No-Code Builder</strong></td>
+          <td>React flow editor · YAML export</td>
+          <td>Non-technical users build custom agents via UI</td>
+          <td class="status-built">&#10003; Built</td>
+        </tr>
+        <tr>
+          <td><strong>RILCOIN Contract</strong></td>
+          <td>Solidity · ERC-20 · Base L2</td>
+          <td>On-chain agent credit token, marketplace transactions</td>
+          <td class="status-built">&#10003; Built</td>
+        </tr>
+      </tbody>
+    </table>
+  </div><!-- /section 2 -->
+
+  <!-- Section 3: AI Cost Model -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">3</div>
+      AI Cost Model
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent Type</th>
+          <th>Claude Calls</th>
+          <th>Est. Cost / Run</th>
+          <th>Margin at $49/mo (50 runs)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Standalone Agent</strong></td>
+          <td>1&times; Sonnet</td>
+          <td>~$0.06</td>
+          <td>~97%</td>
+        </tr>
+        <tr>
+          <td><strong>Team · 3 Specialists</strong></td>
+          <td>3&times; Sonnet + 1&times; Haiku</td>
+          <td>~$0.19</td>
+          <td>~85%</td>
+        </tr>
+        <tr>
+          <td><strong>Team · 6 Specialists</strong></td>
+          <td>6&times; Sonnet + 1&times; Haiku + 1&times; Sonnet synthesis</td>
+          <td>~$0.43</td>
+          <td>~70%</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>Blended Avg (50 runs/mo)</strong></td>
+          <td>— weighted mix —</td>
+          <td>~$0.20 avg</td>
+          <td>~84% gross margin</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <strong>Unit Economics:</strong> At $49/mo per subscriber with 50 agent runs, blended AI cost is ~$10/subscriber/mo. At 1,000 subscribers that is ~$39,000 gross profit on ~$49,000 revenue — before infrastructure costs of ~$800/mo at that scale.
+    </div>
+  </div><!-- /section 3 -->
+
+  <!-- Section 4: Scalability Roadmap -->
+  <div class="section">
+    <div class="section-title">
+      <div class="section-num">4</div>
+      Scalability Roadmap
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Users</th>
+          <th>Infrastructure</th>
+          <th>Est. Monthly Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dev · Now</strong></td>
+          <td>&lt; 100</td>
+          <td>OrangePi single-board · Cloudflare Tunnel · SQLite · Systemd services</td>
+          <td><strong>~$50</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Seed</strong></td>
+          <td>100 – 10K</td>
+          <td>AWS EC2 t3.xlarge · RDS PostgreSQL · CloudFront CDN · S3 storage</td>
+          <td><strong>~$800</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Scale</strong></td>
+          <td>10K – 100K</td>
+          <td>AWS ECS Fargate · Aurora Serverless · ElastiCache Redis · Multi-region failover</td>
+          <td><strong>~$8,000</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout" style="background:#eff6ff; border-color:#2563eb;">
+      <strong style="color:#1d4ed8;">Path to Scale:</strong> The FastAPI + React stack is cloud-native by design. Migration from SQLite to PostgreSQL requires zero code changes — only a connection string update. Containerization via Docker is complete; ECS deployment is a configuration exercise estimated at 2–3 engineering days.
+    </div>
+  </div><!-- /section 4 -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Rip It Labs · RILBOT AI Agent Marketplace · rilfather.com</span>
+    <span>Confidential — For Investor Due Diligence Only · April 2026</span>
+    <span>455 Agents · FastAPI · React 18 · Anthropic Claude · Base L2</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>

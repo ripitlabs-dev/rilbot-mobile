@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rip It Labs — AI Agent Catalog</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:11px;color:#1a1a1a;background:#f5f5f5;padding:16px}
+.page-header{background:linear-gradient(135deg,#0d1b2a,#1b3a5c);color:#fff;padding:18px 24px;border-radius:8px;margin-bottom:16px;text-align:center}
+.page-header h1{font-size:20px;font-weight:800;letter-spacing:1px}
+.page-header p{font-size:12px;opacity:.8;margin-top:4px}
+.stats{display:flex;gap:24px;justify-content:center;margin-top:10px}
+.stats span{background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.division{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.division h2{padding:8px 12px;font-size:12px;font-weight:700;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.vp{font-size:10px;font-weight:400;opacity:.85;font-style:italic}
+table{width:100%;border-collapse:collapse}
+th{padding:5px 8px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:#f0f0f0;color:#555}
+td{padding:4px 8px;border-bottom:1px solid #f0f0f0;vertical-align:top;line-height:1.4}
+tr:last-child td{border-bottom:none}
+tr:nth-child(odd) td{background:#fafafa}
+tr:nth-child(even) td{background:#fff}
+td:first-child{font-weight:600;white-space:nowrap;width:38%}
+td:nth-child(2){color:#444;width:44%}
+td:nth-child(3){color:#2a7a2a;font-weight:600;white-space:nowrap;width:18%;text-align:right}
+.footer{text-align:center;color:#888;font-size:10px;margin-top:16px;padding:12px;border-top:1px solid #ddd}
+.d1 h2{background:#1b3a5c}
+.d2 h2{background:#2d4a1e}
+.d3 h2{background:#3a1c5c}
+.d4 h2{background:#5c1c1c}
+.d5 h2{background:#1c3d5c}
+.d6 h2{background:#5c3a1c}
+.d7 h2{background:#1c4a4a}
+.d8 h2{background:#4a1c3a}
+.d9 h2{background:#3a3a1c}
+.d10 h2{background:#1c4a2d}
+.d11 h2{background:#4a2d1c}
+.d12 h2{background:#2d1c4a}
+.d13 h2{background:#1c3a4a}
+.d14 h2{background:#4a1c1c}
+.d15 h2{background:#2d4a3a}
+@media print{
+  body{background:#fff;padding:8px}
+  .division{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .page-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .division h2{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+  <h1>Rip It Labs — AI Agent Catalog</h1>
+  <p>Enterprise AI Workforce · Built on Claude · Powered by RILCOIN</p>
+  <div class="stats">
+    <span>455 Agents</span>
+    <span>48 Teams</span>
+    <span>15 Divisions</span>
+    <span>RILBOT Marketplace</span>
+  </div>
+</div>
+
+<div class="grid">
+
+<!-- 1. EXECUTIVE OFFICE -->
+<div class="division d1">
+  <h2>👑 Executive Office <span class="vp">Chief AI Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🏢 CEO Agent</td><td>Strategy, vision, board reporting</td><td>400 RIL/mo</td></tr>
+    <tr><td>💼 CFO Agent</td><td>Financials, forecasting, capital</td><td>375 RIL/mo</td></tr>
+    <tr><td>⚙️ COO Agent</td><td>Operations, process, efficiency</td><td>350 RIL/mo</td></tr>
+    <tr><td>📣 CMO Agent</td><td>Brand, growth, campaigns</td><td>325 RIL/mo</td></tr>
+    <tr><td>⚖️ CLO Agent</td><td>Legal strategy, risk, compliance</td><td>325 RIL/mo</td></tr>
+    <tr><td>📊 Excel Master</td><td>Advanced spreadsheets & models</td><td>150 RIL/mo</td></tr>
+    <tr><td>📝 Corp Secretary</td><td>Minutes, resolutions, filings</td><td>200 RIL/mo</td></tr>
+    <tr><td>🎯 Pitch Architect</td><td>Decks, narratives, investor prep</td><td>275 RIL/mo</td></tr>
+    <tr><td>👤 HR Strategist</td><td>Workforce planning, culture</td><td>250 RIL/mo</td></tr>
+    <tr><td>🔍 Analyst</td><td>Research, data synthesis, reports</td><td>200 RIL/mo</td></tr>
+    <tr><td>🗂️ Exec Assistant</td><td>Chief of Staff AI, scheduling</td><td>225 RIL/mo</td></tr>
+    <tr><td>🤝 Personal Assistant</td><td>Tasks, reminders, coordination</td><td>125 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 2. OPERATIONS -->
+<div class="division d2">
+  <h2>⚙️ Operations <span class="vp">VP of Operations</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🚚 Freight</td><td>Carrier rates, routing, tracking</td><td>200 RIL/mo</td></tr>
+    <tr><td>🔗 Supply Chain</td><td>Vendor mgmt, demand planning</td><td>225 RIL/mo</td></tr>
+    <tr><td>🌐 Customs</td><td>Import/export, tariffs, docs</td><td>250 RIL/mo</td></tr>
+    <tr><td>📦 Last Mile</td><td>Delivery optimization, returns</td><td>175 RIL/mo</td></tr>
+    <tr><td>🏭 Warehouse</td><td>Inventory, layout, pick/pack</td><td>175 RIL/mo</td></tr>
+    <tr><td>🏗️ Production Planner</td><td>Schedules, capacity, MRP</td><td>225 RIL/mo</td></tr>
+    <tr><td>✅ QC Manager</td><td>Quality standards, inspections</td><td>200 RIL/mo</td></tr>
+    <tr><td>🦺 EHS Manager</td><td>Safety, environment, compliance</td><td>225 RIL/mo</td></tr>
+    <tr><td>📉 Lean Specialist</td><td>Kaizen, Six Sigma, waste reduction</td><td>200 RIL/mo</td></tr>
+    <tr><td>🛒 Procurement</td><td>Sourcing, RFPs, vendor contracts</td><td>200 RIL/mo</td></tr>
+    <tr><td>🛣️ Roads</td><td>Civil road design, maintenance</td><td>250 RIL/mo</td></tr>
+    <tr><td>⚡ Power Grid</td><td>Grid design, load, reliability</td><td>275 RIL/mo</td></tr>
+    <tr><td>💧 Water Treatment</td><td>Plant ops, compliance, quality</td><td>250 RIL/mo</td></tr>
+    <tr><td>🌿 Environmental</td><td>Impact assessments, mitigation</td><td>225 RIL/mo</td></tr>
+    <tr><td>🌊 Dams</td><td>Structural safety, hydrology</td><td>300 RIL/mo</td></tr>
+    <tr><td>🪨 Geotechnical (Infra)</td><td>Soil analysis, foundation risk</td><td>275 RIL/mo</td></tr>
+    <tr><td>📋 Project Director</td><td>Infra program mgmt, stakeholders</td><td>300 RIL/mo</td></tr>
+    <tr><td>🔌 Electrical Eng</td><td>Schematics, NEC, load calcs</td><td>250 RIL/mo</td></tr>
+    <tr><td>🏙️ Civil Eng</td><td>Site dev, grading, stormwater</td><td>250 RIL/mo</td></tr>
+    <tr><td>🏛️ Structural Eng</td><td>Structural analysis, codes</td><td>275 RIL/mo</td></tr>
+    <tr><td>⚙️ Mechanical Eng</td><td>HVAC, systems, thermodynamics</td><td>250 RIL/mo</td></tr>
+    <tr><td>🚿 Plumbing Eng</td><td>Piping, plumbing design, codes</td><td>225 RIL/mo</td></tr>
+    <tr><td>🪨 Geotechnical Eng</td><td>Borings, labs, slope stability</td><td>275 RIL/mo</td></tr>
+    <tr><td>🗂️ Project Coordinator</td><td>Eng project tracking, submittals</td><td>200 RIL/mo</td></tr>
+    <tr><td>💓 System Health</td><td>Platform monitoring, uptime</td><td>150 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 3. FINANCE & BANKING -->
+<div class="division d3">
+  <h2>💰 Finance &amp; Banking <span class="vp">Chief Financial Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>📈 Investment</td><td>Portfolio, allocation, market analysis</td><td>350 RIL/mo</td></tr>
+    <tr><td>📊 Trading</td><td>Execution strategy, algo trading</td><td>400 RIL/mo</td></tr>
+    <tr><td>🏦 Retirement</td><td>401k, IRA, retirement planning</td><td>275 RIL/mo</td></tr>
+    <tr><td>🛡️ Life Insurance</td><td>Policy analysis, needs assessment</td><td>225 RIL/mo</td></tr>
+    <tr><td>💎 Wealth Planner</td><td>HNW planning, estate coordination</td><td>375 RIL/mo</td></tr>
+    <tr><td>🏛️ Loan Officer</td><td>Application review, underwriting</td><td>250 RIL/mo</td></tr>
+    <tr><td>📉 Credit Analyst</td><td>Credit scoring, risk, decisioning</td><td>250 RIL/mo</td></tr>
+    <tr><td>🔎 BSA/AML Compliance</td><td>KYC, SAR filing, monitoring</td><td>300 RIL/mo</td></tr>
+    <tr><td>🕵️ Fraud Investigator</td><td>Fraud detection, case mgmt</td><td>300 RIL/mo</td></tr>
+    <tr><td>🏢 Branch Manager</td><td>Retail banking ops, team mgmt</td><td>275 RIL/mo</td></tr>
+    <tr><td>📋 Financial Analyst</td><td>FP&amp;A, modeling, variance analysis</td><td>275 RIL/mo</td></tr>
+    <tr><td>🧾 Invoice Generator</td><td>Automated billing, AR tracking</td><td>125 RIL/mo</td></tr>
+    <tr><td>🗂️ Tax Agent</td><td>Tax prep, planning, filings</td><td>250 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 4. LEGAL & COMPLIANCE -->
+<div class="division d4">
+  <h2>⚖️ Legal &amp; Compliance <span class="vp">General Counsel</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>✍️ Contract Drafter</td><td>Custom contracts from scratch</td><td>275 RIL/mo</td></tr>
+    <tr><td>🔍 Contract Reviewer</td><td>Risk flagging, clause analysis</td><td>250 RIL/mo</td></tr>
+    <tr><td>📋 Forms Specialist</td><td>Legal form generation, filing</td><td>200 RIL/mo</td></tr>
+    <tr><td>🔎 Due Diligence</td><td>M&amp;A, investments, entity checks</td><td>325 RIL/mo</td></tr>
+    <tr><td>🤝 Negotiation</td><td>Deal terms, counter-offers, tactics</td><td>300 RIL/mo</td></tr>
+    <tr><td>✅ Compliance Checker</td><td>Regulatory gap analysis</td><td>275 RIL/mo</td></tr>
+    <tr><td>⚠️ Risk Assessor</td><td>Legal risk scoring, mitigation</td><td>275 RIL/mo</td></tr>
+    <tr><td>🏛️ Litigation</td><td>Pleadings, strategy, discovery</td><td>350 RIL/mo</td></tr>
+    <tr><td>👨‍👩‍👧 Family Law</td><td>Divorce, custody, support</td><td>300 RIL/mo</td></tr>
+    <tr><td>🔒 Criminal Defense</td><td>Defense strategy, case analysis</td><td>325 RIL/mo</td></tr>
+    <tr><td>🌍 Immigration</td><td>Visas, green cards, petitions</td><td>300 RIL/mo</td></tr>
+    <tr><td>📁 Paralegal</td><td>Research, filings, case support</td><td>175 RIL/mo</td></tr>
+    <tr><td>📜 Wills</td><td>Will drafting, testamentary</td><td>225 RIL/mo</td></tr>
+    <tr><td>🏛️ Probate</td><td>Estate admin, court filings</td><td>250 RIL/mo</td></tr>
+    <tr><td>🗂️ Estate Tax</td><td>Estate tax planning, returns</td><td>275 RIL/mo</td></tr>
+    <tr><td>📋 Living Trust</td><td>Trust drafting, funding</td><td>250 RIL/mo</td></tr>
+    <tr><td>🛡️ Asset Protection</td><td>Structures, shielding, planning</td><td>275 RIL/mo</td></tr>
+    <tr><td>💡 IP Director</td><td>IP strategy, portfolio mgmt</td><td>350 RIL/mo</td></tr>
+    <tr><td>🔬 Patent</td><td>Applications, prosecution, searches</td><td>375 RIL/mo</td></tr>
+    <tr><td>™️ Trademark</td><td>Registration, monitoring, defense</td><td>300 RIL/mo</td></tr>
+    <tr><td>©️ Copyright</td><td>Registration, licensing, DMCA</td><td>250 RIL/mo</td></tr>
+    <tr><td>🛡️ Brand Protection</td><td>Counterfeiting, infringement</td><td>275 RIL/mo</td></tr>
+    <tr><td>📄 Licensing</td><td>License agreements, royalties</td><td>275 RIL/mo</td></tr>
+    <tr><td>🔐 Trade Secret</td><td>NDA, misappropriation, policies</td><td>275 RIL/mo</td></tr>
+    <tr><td>🏢 Business Identity</td><td>Entity formation, DBA, branding</td><td>200 RIL/mo</td></tr>
+    <tr><td>📊 DUNS Credit</td><td>D-U-N-S, business credit building</td><td>225 RIL/mo</td></tr>
+    <tr><td>📚 Legal Research</td><td>Case law, statutes, memos</td><td>225 RIL/mo</td></tr>
+    <tr><td>🎖️ VA Benefits</td><td>Veterans claims, appeals, benefits</td><td>200 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 5. HUMAN RESOURCES -->
+<div class="division d5">
+  <h2>👥 Human Resources <span class="vp">Chief People Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🎯 Recruiter</td><td>Sourcing, pipelines, job posts</td><td>225 RIL/mo</td></tr>
+    <tr><td>🚀 Onboarding</td><td>Day-1 setup, docs, orientation</td><td>175 RIL/mo</td></tr>
+    <tr><td>🛡️ Benefits</td><td>Benefits admin, enrollment, FAQ</td><td>200 RIL/mo</td></tr>
+    <tr><td>✅ HR Compliance</td><td>Labor law, audits, policies</td><td>225 RIL/mo</td></tr>
+    <tr><td>📊 Performance</td><td>Reviews, OKRs, improvement plans</td><td>200 RIL/mo</td></tr>
+    <tr><td>🤝 Employee Relations</td><td>Conflict, grievances, culture</td><td>200 RIL/mo</td></tr>
+    <tr><td>💵 Payroll Clerk</td><td>Processing, deductions, W-2s</td><td>175 RIL/mo</td></tr>
+    <tr><td>📚 Training</td><td>L&amp;D programs, LMS, courses</td><td>175 RIL/mo</td></tr>
+    <tr><td>🖥️ HRIS Admin</td><td>System admin, data, reporting</td><td>175 RIL/mo</td></tr>
+    <tr><td>🖊️ Office Admin (Temp)</td><td>Scheduling, filing, coordination</td><td>100 RIL/mo</td></tr>
+    <tr><td>📞 Customer Svc (Temp)</td><td>Inbound support, ticket handling</td><td>100 RIL/mo</td></tr>
+    <tr><td>📒 Bookkeeper (Temp)</td><td>AR/AP, bank recs, QuickBooks</td><td>125 RIL/mo</td></tr>
+    <tr><td>🎯 HR Recruiter (Temp)</td><td>Contract recruiting, screening</td><td>125 RIL/mo</td></tr>
+    <tr><td>💾 Data Entry (Temp)</td><td>Accuracy-focused data processing</td><td>75 RIL/mo</td></tr>
+    <tr><td>📱 Receptionist (Temp)</td><td>Front desk, calls, visitors</td><td>75 RIL/mo</td></tr>
+    <tr><td>📣 Mktg Asst (Temp)</td><td>Social, content, campaign support</td><td>100 RIL/mo</td></tr>
+    <tr><td>📁 Legal Clerk (Temp)</td><td>Filing, docket, correspondence</td><td>100 RIL/mo</td></tr>
+    <tr><td>💻 IT Helpdesk (Temp)</td><td>Tier-1 support, tickets, setup</td><td>100 RIL/mo</td></tr>
+    <tr><td>🔍 Hiring Screener</td><td>Resume parse, fit scoring</td><td>150 RIL/mo</td></tr>
+    <tr><td>🗺️ Onboarding Guide</td><td>Interactive new-hire journey</td><td>150 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 6. SALES & MARKETING -->
+<div class="division d6">
+  <h2>📈 Sales &amp; Marketing <span class="vp">Chief Revenue Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>✍️ Content Strategist</td><td>Editorial calendar, messaging</td><td>225 RIL/mo</td></tr>
+    <tr><td>🎬 Video Producer</td><td>Scripts, storyboards, production</td><td>250 RIL/mo</td></tr>
+    <tr><td>📰 PR Specialist</td><td>Releases, pitches, media relations</td><td>225 RIL/mo</td></tr>
+    <tr><td>📱 Social Media Mgr</td><td>Multi-platform content, analytics</td><td>200 RIL/mo</td></tr>
+    <tr><td>🎨 Brand Director</td><td>Identity, guidelines, positioning</td><td>275 RIL/mo</td></tr>
+    <tr><td>🚀 Flex Sales</td><td>Adaptive selling, any product/svc</td><td>250 RIL/mo</td></tr>
+    <tr><td>⚡ Hyper Sales</td><td>High-velocity closing, urgency</td><td>300 RIL/mo</td></tr>
+    <tr><td>📧 Email Followup Bot</td><td>Automated drip, nurture sequences</td><td>150 RIL/mo</td></tr>
+    <tr><td>👁️ Lead Monitor</td><td>Pipeline watch, intent signals</td><td>175 RIL/mo</td></tr>
+    <tr><td>🔭 Market Intelligence</td><td>Competitor, trends, insights</td><td>250 RIL/mo</td></tr>
+    <tr><td>🔍 SEO Optimizer</td><td>Keywords, on-page, link building</td><td>200 RIL/mo</td></tr>
+    <tr><td>♻️ Content Repurposing</td><td>Blogs → reels → posts → ads</td><td>175 RIL/mo</td></tr>
+    <tr><td>⭐ Reputation Monitor</td><td>Reviews, sentiment, responses</td><td>175 RIL/mo</td></tr>
+    <tr><td>🪙 RILCOIN Growth</td><td>Token adoption, community, DeFi</td><td>300 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 7. TECHNOLOGY -->
+<div class="division d7">
+  <h2>💻 Technology <span class="vp">Chief Technology Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>👨‍💻 Software Engineer</td><td>Full-stack dev, architecture</td><td>350 RIL/mo</td></tr>
+    <tr><td>⌨️ Coding Engineer</td><td>Implementation, PRs, debugging</td><td>300 RIL/mo</td></tr>
+    <tr><td>🧪 QA Engineer</td><td>Test plans, automation, coverage</td><td>250 RIL/mo</td></tr>
+    <tr><td>🛡️ SOC Analyst</td><td>Alerts, triage, SIEM monitoring</td><td>325 RIL/mo</td></tr>
+    <tr><td>🚨 Incident Responder</td><td>IR playbooks, containment</td><td>350 RIL/mo</td></tr>
+    <tr><td>📋 Cyber Compliance</td><td>NIST, SOC2, FedRAMP readiness</td><td>325 RIL/mo</td></tr>
+    <tr><td>🔭 Threat Intel</td><td>IOCs, threat feeds, attribution</td><td>350 RIL/mo</td></tr>
+    <tr><td>💥 Pentester</td><td>Ethical hacking, vuln reports</td><td>400 RIL/mo</td></tr>
+    <tr><td>🔄 Data Pipeline</td><td>ETL, orchestration, data quality</td><td>250 RIL/mo</td></tr>
+    <tr><td>🔍 Security Scanner</td><td>Continuous vuln scanning</td><td>200 RIL/mo</td></tr>
+    <tr><td>🔴 Red Team</td><td>Adversarial simulation, TTPs</td><td>450 RIL/mo</td></tr>
+    <tr><td>🌐 Perimeter Scan</td><td>External attack surface mapping</td><td>250 RIL/mo</td></tr>
+    <tr><td>📍 Geofence Agent</td><td>Location-based trigger rules</td><td>175 RIL/mo</td></tr>
+    <tr><td>🗺️ Location Agent</td><td>Geo-routing, proximity logic</td><td>175 RIL/mo</td></tr>
+    <tr><td>⚡ Cyber Strike</td><td>Offensive countermeasures</td><td>500 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 8. HEALTHCARE & LIFE SCIENCES -->
+<div class="division d8">
+  <h2>🏥 Healthcare &amp; Life Sciences <span class="vp">Chief Medical Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🗂️ Patient Coordinator</td><td>Scheduling, intake, follow-up</td><td>200 RIL/mo</td></tr>
+    <tr><td>🩺 Clinical Advisor</td><td>Evidence-based clinical support</td><td>350 RIL/mo</td></tr>
+    <tr><td>🧾 Medical Biller</td><td>CPT/ICD coding, claims, ERA</td><td>225 RIL/mo</td></tr>
+    <tr><td>🔒 HIPAA Compliance</td><td>PHI policies, audits, training</td><td>250 RIL/mo</td></tr>
+    <tr><td>💻 Telehealth Coord.</td><td>Virtual visit setup, triage</td><td>200 RIL/mo</td></tr>
+    <tr><td>🦷 Treatment Coord.</td><td>Dental tx plans, case acceptance</td><td>200 RIL/mo</td></tr>
+    <tr><td>🧾 Dental Biller</td><td>ADA codes, dental claims</td><td>200 RIL/mo</td></tr>
+    <tr><td>🛡️ Insurance Coord.</td><td>Dental benefits, pre-auth</td><td>175 RIL/mo</td></tr>
+    <tr><td>🪥 Hygiene Coord.</td><td>Recall, hygiene scheduling</td><td>150 RIL/mo</td></tr>
+    <tr><td>📚 Patient Educator</td><td>Oral health, procedure education</td><td>150 RIL/mo</td></tr>
+    <tr><td>📋 Regulatory Affairs</td><td>FDA submissions, dossiers</td><td>375 RIL/mo</td></tr>
+    <tr><td>🔬 Clinical Trial Mgr</td><td>Protocol, site mgmt, ICH-GCP</td><td>375 RIL/mo</td></tr>
+    <tr><td>💊 Pharmacovigilance</td><td>Adverse events, FAERS, safety</td><td>350 RIL/mo</td></tr>
+    <tr><td>📣 Medical Affairs</td><td>KOL engagement, publications</td><td>325 RIL/mo</td></tr>
+    <tr><td>✅ GMP QA</td><td>Quality systems, batch release</td><td>300 RIL/mo</td></tr>
+    <tr><td>🐾 Vet Triage Coord.</td><td>Animal triage, case prioritization</td><td>200 RIL/mo</td></tr>
+    <tr><td>😊 Vet Client Relations</td><td>Owner comms, follow-up</td><td>175 RIL/mo</td></tr>
+    <tr><td>💵 Vet Billing</td><td>Veterinary claims, invoicing</td><td>175 RIL/mo</td></tr>
+    <tr><td>💊 Vet Pharmacy Mgr</td><td>Rx mgmt, controlled substances</td><td>200 RIL/mo</td></tr>
+    <tr><td>🏥 Vet Practice Mgr</td><td>Practice ops, staff, financials</td><td>225 RIL/mo</td></tr>
+    <tr><td>✨ Master Aesthetician</td><td>Skin consults, treatment plans</td><td>175 RIL/mo</td></tr>
+    <tr><td>🏷️ Membership Mgr</td><td>Med spa memberships, retention</td><td>175 RIL/mo</td></tr>
+    <tr><td>🔒 Wellness HIPAA</td><td>Spa PHI compliance, consent</td><td>200 RIL/mo</td></tr>
+    <tr><td>🛍️ Retail Specialist</td><td>Med spa product sales, reorders</td><td>150 RIL/mo</td></tr>
+    <tr><td>📅 Wellness Scheduler</td><td>Booking, waitlist, reminders</td><td>125 RIL/mo</td></tr>
+    <tr><td>📞 Dispo Receptionist</td><td>Dispensary front desk, triage</td><td>125 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 9. REAL ESTATE & CONSTRUCTION -->
+<div class="division d9">
+  <h2>🏗️ Real Estate &amp; Construction <span class="vp">VP Real Estate &amp; Development</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🏠 Buyer's Agent</td><td>Property search, offers, closing</td><td>275 RIL/mo</td></tr>
+    <tr><td>🏡 Listing Agent</td><td>CMA, marketing, negotiations</td><td>275 RIL/mo</td></tr>
+    <tr><td>🏢 Commercial Broker</td><td>CRE leases, acquisitions</td><td>325 RIL/mo</td></tr>
+    <tr><td>🏦 Mortgage Officer</td><td>Loan structuring, pre-quals</td><td>250 RIL/mo</td></tr>
+    <tr><td>📋 Title &amp; Escrow</td><td>Closing coordination, title</td><td>225 RIL/mo</td></tr>
+    <tr><td>🔨 Project Manager</td><td>Construction schedules, GC mgmt</td><td>300 RIL/mo</td></tr>
+    <tr><td>📊 Estimator</td><td>Takeoffs, bid prep, cost control</td><td>275 RIL/mo</td></tr>
+    <tr><td>🦺 Safety Officer</td><td>OSHA, jobsite safety programs</td><td>250 RIL/mo</td></tr>
+    <tr><td>📁 Permitting Spec.</td><td>Permit apps, plan review, AHJ</td><td>225 RIL/mo</td></tr>
+    <tr><td>🏗️ Superintendent</td><td>Field ops, subs, daily reports</td><td>275 RIL/mo</td></tr>
+    <tr><td>🏘️ Property Manager</td><td>Leases, maintenance, tenant mgmt</td><td>225 RIL/mo</td></tr>
+    <tr><td>🚗 Auto Adjuster</td><td>Vehicle damage, claims, appraisals</td><td>200 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 10. HOSPITALITY & TRAVEL -->
+<div class="division d10">
+  <h2>✈️ Hospitality &amp; Travel <span class="vp">VP Hospitality &amp; Travel</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🔑 Concierge</td><td>Reservations, itineraries, local tips</td><td>200 RIL/mo</td></tr>
+    <tr><td>🛏️ Housekeeping</td><td>Scheduling, inspections, standards</td><td>150 RIL/mo</td></tr>
+    <tr><td>🍽️ F&amp;B Manager</td><td>Menu, inventory, dining ops</td><td>225 RIL/mo</td></tr>
+    <tr><td>💹 Revenue Manager</td><td>Pricing, yield, OTA strategy</td><td>275 RIL/mo</td></tr>
+    <tr><td>😊 Guest Experience</td><td>Reviews, loyalty, satisfaction</td><td>200 RIL/mo</td></tr>
+    <tr><td>🎪 Event Coordinator</td><td>Weddings, conferences, F&amp;B events</td><td>225 RIL/mo</td></tr>
+    <tr><td>✈️ Dir. Flight Ops</td><td>Flight planning, dispatch, safety</td><td>350 RIL/mo</td></tr>
+    <tr><td>🔧 MRO Specialist</td><td>Aircraft maintenance, records</td><td>325 RIL/mo</td></tr>
+    <tr><td>🛡️ Aviation Safety</td><td>SMS, accident prevention, audits</td><td>325 RIL/mo</td></tr>
+    <tr><td>📋 Aviation Regulatory</td><td>FAA compliance, certs, ops specs</td><td>300 RIL/mo</td></tr>
+    <tr><td>🚐 Ground Ops</td><td>Ramp, fueling, ground handling</td><td>225 RIL/mo</td></tr>
+    <tr><td>📖 Restaurant Menu</td><td>Menu engineering, costing</td><td>175 RIL/mo</td></tr>
+    <tr><td>⚙️ Restaurant Ops</td><td>Kitchen flow, staffing, systems</td><td>200 RIL/mo</td></tr>
+    <tr><td>💰 Restaurant Finance</td><td>P&amp;L, food cost, prime cost</td><td>225 RIL/mo</td></tr>
+    <tr><td>📣 Restaurant Mktg</td><td>Local SEO, promotions, loyalty</td><td>175 RIL/mo</td></tr>
+    <tr><td>✅ Restaurant Comply</td><td>Health codes, ABC, food safety</td><td>200 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 11. INDUSTRY VERTICALS -->
+<div class="division d11">
+  <h2>🏭 Industry Verticals <span class="vp">VP Industry Solutions</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>📦 Inventory Mgr</td><td>SKU mgmt, reorder, shrink</td><td>200 RIL/mo</td></tr>
+    <tr><td>🎨 Visual Merchandiser</td><td>Planograms, displays, floor plans</td><td>175 RIL/mo</td></tr>
+    <tr><td>🛒 E-Commerce</td><td>Listings, SEO, conversion</td><td>200 RIL/mo</td></tr>
+    <tr><td>😊 Retail Cust. Svc</td><td>Returns, complaints, loyalty</td><td>150 RIL/mo</td></tr>
+    <tr><td>🛍️ Buyer</td><td>Trend buying, vendor negotiation</td><td>225 RIL/mo</td></tr>
+    <tr><td>🚗 Auto Sales Mgr</td><td>Desk mgmt, inventory, turn</td><td>275 RIL/mo</td></tr>
+    <tr><td>💳 F&amp;I Manager</td><td>Finance, warranty, aftermarket</td><td>300 RIL/mo</td></tr>
+    <tr><td>🔧 Service Advisor</td><td>RO writing, upsell, CSI</td><td>225 RIL/mo</td></tr>
+    <tr><td>🔩 Parts Manager</td><td>Parts inventory, lost sales</td><td>200 RIL/mo</td></tr>
+    <tr><td>📞 BDC Rep</td><td>Leads, appointments, outbound</td><td>175 RIL/mo</td></tr>
+    <tr><td>📚 Curriculum Designer</td><td>Courses, standards alignment</td><td>225 RIL/mo</td></tr>
+    <tr><td>🎓 Admissions Counselor</td><td>Enrollment, outreach, yield</td><td>200 RIL/mo</td></tr>
+    <tr><td>🗺️ Academic Advisor</td><td>Degree plans, interventions</td><td>200 RIL/mo</td></tr>
+    <tr><td>🏫 Instructional Coach</td><td>Teacher PD, observation, feedback</td><td>225 RIL/mo</td></tr>
+    <tr><td>🏛️ Education Admin</td><td>Operations, policy, scheduling</td><td>200 RIL/mo</td></tr>
+    <tr><td>⚡ Energy Analyst</td><td>Consumption, audits, savings</td><td>275 RIL/mo</td></tr>
+    <tr><td>🌞 Renewable Advisor</td><td>Solar, wind, clean energy plans</td><td>275 RIL/mo</td></tr>
+    <tr><td>🔌 Grid Engineer</td><td>T&amp;D engineering, smart grid</td><td>300 RIL/mo</td></tr>
+    <tr><td>📋 Energy Regulatory</td><td>FERC, PUC, compliance filings</td><td>275 RIL/mo</td></tr>
+    <tr><td>🌿 Sustainability Consult</td><td>ESG, carbon, net-zero roadmaps</td><td>275 RIL/mo</td></tr>
+    <tr><td>🌾 Agronomist</td><td>Crop planning, yield optimization</td><td>250 RIL/mo</td></tr>
+    <tr><td>🪱 Soil Scientist</td><td>Soil health, amendments, sampling</td><td>225 RIL/mo</td></tr>
+    <tr><td>💧 Irrigation</td><td>Water mgmt, efficiency, systems</td><td>200 RIL/mo</td></tr>
+    <tr><td>🐛 Pest &amp; Disease</td><td>IPM, scouting, treatment plans</td><td>200 RIL/mo</td></tr>
+    <tr><td>🐄 Livestock</td><td>Herd health, nutrition, genetics</td><td>225 RIL/mo</td></tr>
+    <tr><td>🌦️ Weather/Climate</td><td>Forecasts, risk, crop insurance</td><td>200 RIL/mo</td></tr>
+    <tr><td>💼 Farm Business</td><td>Ag finance, loans, business plans</td><td>225 RIL/mo</td></tr>
+    <tr><td>🚜 Equipment</td><td>Machinery selection, maintenance</td><td>200 RIL/mo</td></tr>
+    <tr><td>♻️ Sustainable Ag</td><td>Regenerative, cover crops, carbon</td><td>225 RIL/mo</td></tr>
+    <tr><td>🍎 Food Safety</td><td>GAP, FSMA, traceability, audits</td><td>225 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 12. SOCIAL IMPACT -->
+<div class="division d12">
+  <h2>🌍 Social Impact <span class="vp">VP Social Impact</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>✍️ Grant Writer</td><td>Proposals, RFPs, reporting</td><td>250 RIL/mo</td></tr>
+    <tr><td>📋 Program Director</td><td>Program design, outcomes, impact</td><td>275 RIL/mo</td></tr>
+    <tr><td>❤️ Donor Relations</td><td>Stewardship, major gifts, appeals</td><td>225 RIL/mo</td></tr>
+    <tr><td>✅ Nonprofit Compliance</td><td>990, state filings, governance</td><td>225 RIL/mo</td></tr>
+    <tr><td>🙌 Volunteer Coord.</td><td>Recruitment, scheduling, tracking</td><td>175 RIL/mo</td></tr>
+    <tr><td>📥 Benefits Intake</td><td>Eligibility screening, case setup</td><td>150 RIL/mo</td></tr>
+    <tr><td>🏛️ Federal Agent</td><td>SNAP, SSI, Medicaid applications</td><td>200 RIL/mo</td></tr>
+    <tr><td>🗺️ State Agent</td><td>State benefits, housing, childcare</td><td>200 RIL/mo</td></tr>
+    <tr><td>📝 Benefits Drafter</td><td>Appeal letters, documentation</td><td>175 RIL/mo</td></tr>
+    <tr><td>⚖️ Benefits Appeals</td><td>Hearings, reconsiderations, ALJ</td><td>250 RIL/mo</td></tr>
+    <tr><td>🏠 Personal Lines Ins.</td><td>Home, auto, renters quotes</td><td>200 RIL/mo</td></tr>
+    <tr><td>🏢 Commercial Lines</td><td>BOP, GL, commercial property</td><td>250 RIL/mo</td></tr>
+    <tr><td>📊 Underwriter</td><td>Risk assessment, pricing, declinations</td><td>275 RIL/mo</td></tr>
+    <tr><td>📜 Bonds Agent</td><td>Surety, fidelity, performance bonds</td><td>225 RIL/mo</td></tr>
+    <tr><td>🚨 Claims Agent</td><td>FNOL, reserves, settlements</td><td>225 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 13. BLOCKCHAIN -->
+<div class="division d13">
+  <h2>🪙 Blockchain <span class="vp">Chief Blockchain Officer</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>🪙 RILCOIN Growth</td><td>Token adoption, DeFi, community</td><td>300 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 14. INTELLIGENCE -->
+<div class="division d14">
+  <h2>🔍 Intelligence <span class="vp">Director of Intelligence</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>⚖️ Judgment Recovery</td><td>Asset discovery, collections, liens</td><td>350 RIL/mo</td></tr>
+    <tr><td>⚡ Cyber Strike</td><td>Offensive countermeasures</td><td>500 RIL/mo</td></tr>
+    <tr><td>🔴 Red Team</td><td>Adversarial simulation, TTPs</td><td>450 RIL/mo</td></tr>
+  </table>
+</div>
+
+<!-- 15. CLIENT SERVICES -->
+<div class="division d15">
+  <h2>🤝 Client Services <span class="vp">VP Client Success</span></h2>
+  <table>
+    <tr><th>Agent</th><th>Tagline</th><th>Price (Pro)</th></tr>
+    <tr><td>💬 Customer Support AI</td><td>24/7 support, tickets, escalations</td><td>175 RIL/mo</td></tr>
+    <tr><td>📅 Appointment Concierge</td><td>Scheduling, reminders, rescheduling</td><td>125 RIL/mo</td></tr>
+  </table>
+</div>
+
+</div><!-- end grid -->
+
+<div class="footer">
+  Confidential &nbsp;·&nbsp; Rip It Labs © 2026 &nbsp;·&nbsp; ripitlabs.com &nbsp;·&nbsp; All pricing in RIL tokens &nbsp;·&nbsp; 455 Agents across 48 Teams
+</div>
+</body>
+</html>

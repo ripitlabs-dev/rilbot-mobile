@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rip It Labs — Schedule a Call</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --navy:#0f172a; --blue:#2563eb; --gold:#f59e0b; --green:#10b981; --light:#f8fafc; --muted:#64748b; --border:#e2e8f0; }
+  body { font-family:'Inter',sans-serif; font-size:15px; line-height:1.6; color:#1e293b; background:#f1f5f9; min-height:100vh; }
+
+  header { background:var(--navy); color:#fff; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; }
+  .logo { font-family:'Playfair Display',serif; font-size:26px; font-weight:900; letter-spacing:2px; }
+  .logo span { color:var(--gold); }
+  .back-btn { color:#94a3b8; text-decoration:none; font-size:14px; }
+  .back-btn:hover { color:#fff; }
+
+  .hero { background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%); color:#fff; padding:50px 40px; text-align:center; }
+  .hero h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:900; margin-bottom:12px; }
+  .hero h1 span { color:var(--gold); }
+  .hero p { color:#94a3b8; font-size:17px; max-width:560px; margin:0 auto; }
+
+  .container { max-width:960px; margin:0 auto; padding:40px 20px; }
+
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+
+  .card { background:#fff; border-radius:16px; padding:32px; border:1px solid var(--border); box-shadow:0 4px 20px rgba(0,0,0,.05); }
+  .card h2 { font-family:'Playfair Display',serif; font-size:24px; margin-bottom:8px; }
+  .card .sub { color:var(--muted); font-size:14px; margin-bottom:24px; }
+
+  .call-types { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+  .call-type { border:1.5px solid var(--border); border-radius:10px; padding:16px 20px; cursor:pointer; transition:all .2s; }
+  .call-type:hover, .call-type.active { border-color:var(--blue); background:#eff6ff; }
+  .call-type .ct-title { font-weight:600; font-size:15px; color:#1e293b; }
+  .call-type .ct-desc { font-size:13px; color:var(--muted); margin-top:3px; }
+  .call-type .ct-dur { font-size:12px; color:var(--blue); font-weight:600; margin-top:4px; }
+
+  .time-slots { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:20px; }
+  .slot { padding:10px; border:1.5px solid var(--border); border-radius:8px; text-align:center; cursor:pointer; font-size:13px; font-weight:500; transition:all .2s; }
+  .slot:hover, .slot.active { border-color:var(--blue); background:var(--blue); color:#fff; }
+  .slot.taken { background:#f1f5f9; color:#94a3b8; cursor:not-allowed; text-decoration:line-through; }
+
+  .timezone-note { font-size:12px; color:var(--muted); margin-bottom:20px; }
+
+  .form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  label { font-size:13px; font-weight:600; color:#374151; }
+  input, select, textarea { padding:11px 14px; border:1.5px solid var(--border); border-radius:8px; font-family:'Inter',sans-serif; font-size:14px; color:#1e293b; background:#fff; transition:border .2s; outline:none; width:100%; }
+  input:focus, select:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,.1); }
+
+  .submit-btn { width:100%; padding:15px; background:var(--blue); color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:background .2s; }
+  .submit-btn:hover { background:#1d4ed8; }
+
+  .success-msg { display:none; text-align:center; padding:32px; }
+  .success-msg .icon { font-size:52px; margin-bottom:12px; }
+  .success-msg h3 { font-size:22px; font-weight:700; margin-bottom:8px; color:#065f46; }
+  .success-msg p { color:var(--muted); font-size:14px; }
+
+  .profile-card { display:flex; align-items:flex-start; gap:16px; background:#f8fafc; border-radius:12px; padding:20px; margin-bottom:24px; }
+  .avatar { width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--gold)); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:900; color:#fff; flex-shrink:0; font-family:'Playfair Display',serif; }
+  .profile-info h3 { font-weight:700; font-size:17px; }
+  .profile-info p { font-size:13px; color:var(--muted); margin-top:2px; }
+  .profile-info .badges { display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+  .badge { background:#dbeafe; color:#1d4ed8; font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; }
+
+  .what-to-expect { list-style:none; }
+  .what-to-expect li { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--border); font-size:14px; }
+  .what-to-expect li:last-child { border:none; }
+  .what-to-expect li span { color:var(--green); font-size:18px; flex-shrink:0; }
+
+  .alt-options { background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border); margin-top:20px; }
+  .alt-options h3 { font-size:16px; font-weight:600; margin-bottom:16px; }
+  .alt-option { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--border); }
+  .alt-option:last-child { border:none; padding-bottom:0; }
+  .alt-icon { font-size:24px; }
+  .alt-info { flex:1; }
+  .alt-info .title { font-weight:600; font-size:14px; }
+  .alt-info .desc { font-size:13px; color:var(--muted); }
+  .alt-link { color:var(--blue); text-decoration:none; font-size:13px; font-weight:600; }
+  .alt-link:hover { text-decoration:underline; }
+
+  .date-picker-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .date-pill { padding:8px 14px; border:1.5px solid var(--border); border-radius:8px; cursor:pointer; font-size:13px; text-align:center; transition:all .2s; }
+  .date-pill .day { font-weight:700; font-size:16px; }
+  .date-pill .wd { font-size:11px; color:var(--muted); margin-top:1px; }
+  .date-pill:hover, .date-pill.active { border-color:var(--blue); background:var(--blue); color:#fff; }
+  .date-pill.active .wd { color:#bfdbfe; }
+
+  @media(max-width:700px) { .two-col { grid-template-columns:1fr; } .hero h1 { font-size:30px; } header { padding:16px 20px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RIP IT <span>LABS</span></div>
+  <a href="javascript:history.back()" class="back-btn">← Back to Investor Room</a>
+</header>
+
+<div class="hero">
+  <h1>Schedule an <span>Intro Call</span></h1>
+  <p>15 minutes with Tim Cavin, CEO. Ask anything. No pressure, no pitch decks — just a real conversation.</p>
+</div>
+
+<div class="container">
+  <div class="two-col">
+
+    <!-- LEFT: Scheduler -->
+    <div class="card">
+      <h2>Book Your Call</h2>
+      <p class="sub">All times shown in Central Time (CT). We'll send a Google Meet link.</p>
+
+      <div id="schedulerForm">
+        <div class="call-types">
+          <div class="call-type active" onclick="selectCallType(this)">
+            <div class="ct-title">Investor Intro</div>
+            <div class="ct-desc">Meet Tim, learn about the platform, ask your questions.</div>
+            <div class="ct-dur">15 min</div>
+          </div>
+          <div class="call-type" onclick="selectCallType(this)">
+            <div class="ct-title">Deep Dive</div>
+            <div class="ct-desc">Technical architecture, agent demo, financial walkthrough.</div>
+            <div class="ct-dur">45 min</div>
+          </div>
+          <div class="call-type" onclick="selectCallType(this)">
+            <div class="ct-title">Term Sheet Review</div>
+            <div class="ct-desc">Ready to invest — walk through SAFE terms and wire details.</div>
+            <div class="ct-dur">30 min</div>
+          </div>
+        </div>
+
+        <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">Select a Date</label>
+        <div class="date-picker-row" id="datePills"></div>
+
+        <label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:8px;">Available Times</label>
+        <div class="time-slots" id="timeSlots">
+          <div class="slot" onclick="selectSlot(this)">9:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">9:30 AM</div>
+          <div class="slot taken">10:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">10:30 AM</div>
+          <div class="slot taken">11:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">1:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">1:30 PM</div>
+          <div class="slot" onclick="selectSlot(this)">2:00 PM</div>
+          <div class="slot taken">3:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">3:30 PM</div>
+          <div class="slot" onclick="selectSlot(this)">4:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">4:30 PM</div>
+        </div>
+        <p class="timezone-note">⏱ All times in Central Time (CT). Can't find a time? <a href="mailto:tim@ripitlabs.com" style="color:var(--blue);">Email us directly.</a></p>
+
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" required placeholder="Jane Smith" id="callerName" />
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" required placeholder="jane@fund.com" id="callerEmail" />
+        </div>
+        <div class="form-group">
+          <label>Company / Fund (optional)</label>
+          <input type="text" placeholder="Smith Capital" />
+        </div>
+
+        <button class="submit-btn" onclick="bookCall()">Confirm Booking →</button>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        <div class="icon">📅</div>
+        <h3>You're booked!</h3>
+        <p>A calendar invite will be sent to your email.<br>The Google Meet link will be included.<br><br>
+        Tim looks forward to speaking with you. In the meantime, review the <a href="/investor/financial_model.html" style="color:var(--blue);">Financial Model</a> and <a href="/investor/one_pager.html" style="color:var(--blue);">One Pager</a>.</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: Info -->
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <div class="profile-card">
+          <div class="avatar">TC</div>
+          <div class="profile-info">
+            <h3>Tim Cavin</h3>
+            <p>CEO & Co-Founder, Rip It Labs</p>
+            <div class="badges">
+              <span class="badge">AI / ML</span>
+              <span class="badge">Serial Entrepreneur</span>
+              <span class="badge">630 Agents Built</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:12px;">What to Expect</h3>
+        <ul class="what-to-expect">
+          <li><span>✅</span> A real conversation — no canned pitch</li>
+          <li><span>✅</span> Live demo of the RILBOT platform</li>
+          <li><span>✅</span> Honest answers about traction and roadmap</li>
+          <li><span>✅</span> Walk-through of SAFE terms if interested</li>
+          <li><span>✅</span> Next steps to close within 2 weeks</li>
+        </ul>
+      </div>
+
+      <div class="alt-options">
+        <h3>Other Ways to Connect</h3>
+        <div class="alt-option">
+          <div class="alt-icon">📧</div>
+          <div class="alt-info">
+            <div class="title">Email Tim directly</div>
+            <div class="desc">Fastest path for urgent inquiries</div>
+          </div>
+          <a href="mailto:tim@ripitlabs.com" class="alt-link">tim@ripitlabs.com</a>
+        </div>
+        <div class="alt-option">
+          <div class="alt-icon">📄</div>
+          <div class="alt-info">
+            <div class="title">Submit Investment Interest</div>
+            <div class="desc">Formal intake form with accreditation</div>
+          </div>
+          <a href="/investor/invest_now.html" class="alt-link">Open Form →</a>
+        </div>
+        <div class="alt-option">
+          <div class="alt-icon">💬</div>
+          <div class="alt-info">
+            <div class="title">LinkedIn</div>
+            <div class="desc">Connect with Tim on LinkedIn</div>
+          </div>
+          <a href="https://linkedin.com/in/timcavin" class="alt-link" target="_blank">Connect →</a>
+        </div>
+        <div class="alt-option">
+          <div class="alt-icon">🗂</div>
+          <div class="alt-info">
+            <div class="title">Review the Cap Table</div>
+            <div class="desc">Equity structure and dilution model</div>
+          </div>
+          <a href="/investor/legal/cap_table.html" class="alt-link">View →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Generate next 7 weekdays
+  const datePills = document.getElementById('datePills');
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let count = 0, d = new Date();
+  d.setDate(d.getDate() + 1);
+  while (count < 7) {
+    if (d.getDay() !== 0 && d.getDay() !== 6) {
+      const pill = document.createElement('div');
+      pill.className = 'date-pill' + (count === 0 ? ' active' : '');
+      pill.innerHTML = `<div class="day">${d.getDate()}</div><div class="wd">${days[d.getDay()]}</div>`;
+      pill.onclick = function() {
+        document.querySelectorAll('.date-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+      };
+      datePills.appendChild(pill);
+      count++;
+    }
+    d.setDate(d.getDate() + 1);
+  }
+
+  function selectCallType(el) {
+    document.querySelectorAll('.call-type').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function selectSlot(el) {
+    if (el.classList.contains('taken')) return;
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function bookCall() {
+    const name = document.getElementById('callerName').value.trim();
+    const email = document.getElementById('callerEmail').value.trim();
+    const activeSlot = document.querySelector('.slot.active');
+    const activeDate = document.querySelector('.date-pill.active');
+    if (!name || !email || !activeSlot || !activeDate) {
+      alert('Please fill in your name, email, and select a date and time.');
+      return;
+    }
+    document.getElementById('schedulerForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+</body>
+</html>

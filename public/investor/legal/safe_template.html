@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YC Post-Money SAFE — Rip It Labs, LLC</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 11pt;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 680pt;
+    margin: 0 auto;
+    padding: 36pt 40pt;
+  }
+
+  /* TEMPLATE BANNER */
+  .template-banner {
+    background: #fef9c3;
+    border: 2pt solid #f59e0b;
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    color: #92400e;
+    margin-bottom: 24pt;
+    display: flex;
+    gap: 8pt;
+    align-items: flex-start;
+  }
+  .template-banner .warn-icon { font-size: 14pt; flex-shrink: 0; }
+  .template-banner strong { display: block; font-size: 9.5pt; margin-bottom: 2pt; color: #78350f; }
+
+  /* DOCUMENT TITLE BLOCK */
+  .doc-title-block {
+    text-align: center;
+    margin-bottom: 28pt;
+    padding-bottom: 20pt;
+    border-bottom: 1pt solid #d1d5db;
+  }
+  .doc-title-block .org {
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 6pt;
+  }
+  .doc-title-block h1 {
+    font-size: 18pt;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111827;
+    margin-bottom: 4pt;
+  }
+  .doc-title-block .doc-sub {
+    font-size: 9.5pt;
+    color: #6b7280;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* FILL-IN FIELDS */
+  .field {
+    display: inline-block;
+    border-bottom: 1.5pt solid #2563eb;
+    min-width: 120pt;
+    padding: 0 2pt;
+    color: #2563eb;
+    font-style: italic;
+  }
+  .field-block {
+    display: block;
+    border: 1.5pt solid #2563eb;
+    border-radius: 3pt;
+    padding: 6pt 10pt;
+    margin: 4pt 0 8pt;
+    color: #2563eb;
+    font-style: italic;
+    min-height: 22pt;
+    background: #eff6ff;
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+  }
+  .prefill {
+    color: #111827;
+    font-style: normal;
+    border-bottom: 1pt solid #d1d5db;
+    font-weight: 600;
+  }
+
+  /* SECTION HEADERS */
+  h2 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 20pt 0 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  h3 {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #111827;
+    margin: 14pt 0 5pt;
+  }
+
+  p { margin-bottom: 8pt; }
+
+  .term-row {
+    display: flex;
+    gap: 12pt;
+    margin-bottom: 6pt;
+    align-items: baseline;
+  }
+  .term-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 110pt;
+    flex-shrink: 0;
+  }
+  .term-value { font-size: 11pt; }
+
+  /* KEY TERMS BOX */
+  .key-terms-box {
+    background: #f9fafb;
+    border: 1pt solid #d1d5db;
+    border-radius: 5pt;
+    padding: 14pt 16pt;
+    margin: 14pt 0 20pt;
+  }
+  .key-terms-box h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #374151;
+    margin: 0 0 10pt;
+    border-bottom: 1pt solid #e5e7eb;
+    padding-bottom: 6pt;
+  }
+
+  /* DEFINITIONS */
+  .def-block {
+    margin-bottom: 8pt;
+    padding-left: 14pt;
+    border-left: 2pt solid #e5e7eb;
+  }
+  .def-term { font-weight: 700; }
+  .def-text { }
+
+  /* SIGNATURE BLOCK */
+  .sig-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24pt;
+    margin-top: 28pt;
+    padding-top: 20pt;
+    border-top: 1pt solid #d1d5db;
+  }
+  .sig-party h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #6b7280;
+    margin-bottom: 12pt;
+    border-bottom: 0.5pt solid #e5e7eb;
+    padding-bottom: 4pt;
+  }
+  .sig-line {
+    border-bottom: 1pt solid #374151;
+    margin: 16pt 0 3pt;
+    min-width: 160pt;
+  }
+  .sig-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .sig-prefill {
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    font-weight: 600;
+    color: #111827;
+    margin: 2pt 0;
+  }
+
+  ol { padding-left: 18pt; margin-bottom: 10pt; }
+  ol li { margin-bottom: 4pt; }
+  ul { padding-left: 18pt; margin-bottom: 10pt; }
+  ul li { margin-bottom: 3pt; }
+
+  .page-break { page-break-after: always; margin: 20pt 0; border-top: 1pt dashed #d1d5db; }
+
+  @page { size: letter; margin: 36pt 40pt; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .template-banner { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ATTORNEY WARNING -->
+<div class="template-banner">
+  <div class="warn-icon">⚖️</div>
+  <div>
+    <strong>Template Notice — Have an Attorney Review Before Signing</strong>
+    This is a template based on Y Combinator's standard Post-Money SAFE (Simple Agreement for Future Equity). Fields marked in blue are fill-in fields for each specific investment. Pre-filled fields reflect Rip It Labs' standard terms. This document does not constitute legal advice. Rip It Labs, LLC and each Investor should have independent legal counsel review this agreement prior to execution.
+  </div>
+</div>
+
+<!-- DOCUMENT HEADER -->
+<div class="doc-title-block">
+  <div class="org">Y Combinator — Post-Money SAFE</div>
+  <h1>Simple Agreement for Future Equity</h1>
+  <div class="doc-sub">Post-Money Valuation Cap, No Discount &nbsp;·&nbsp; Based on YC Standard Form (2020)</div>
+</div>
+
+<!-- PARTIES -->
+<p>THIS CERTIFIES THAT in exchange for the payment by <span class="field">[Investor Legal Name]</span> (the "<strong>Investor</strong>") of <span class="field">[Investment Amount, e.g., $[____]]</span> (the "<strong>Purchase Amount</strong>") on or about <span class="field">[Date]</span>, <strong>Rip It Labs, LLC</strong>, an Arizona limited liability company (the "<strong>Company</strong>"), hereby issues to the Investor the right to certain shares of the Company's Capital Stock, subject to the terms described below.</p>
+
+<div class="key-terms-box">
+  <h3>Key Transaction Terms</h3>
+  <div class="term-row">
+    <span class="term-label">Company</span>
+    <span class="term-value"><span class="prefill">Rip It Labs, LLC, an Arizona limited liability company</span></span>
+  </div>
+  <div class="term-row">
+    <span class="term-label">Investor Name</span>
+    <span class="term-value"><span class="field">[Investor Legal Name]</span></span>
+  </div>
+  <div class="term-row">
+    <span class="term-label">Investor Address</span>
+    <span class="term-value"><span class="field">[Investor Address]</span></span>
+  </div>
+  <div class="term-row">
+    <span class="term-label">Purchase Amount</span>
+    <span class="term-value"><span class="field">$[____]</span></span>
+  </div>
+  <div class="term-row">
+    <span class="term-label">Valuation Cap</span>
+    <span class="term-value"><span class="prefill">$5,000,000 (Post-Money)</span></span>
+  </div>
+  <div class="term-row">
+    <span class="term-label">Discount Rate</span>
+    <span class="term-value"><span class="prefill">None (Valuation Cap only)</span></span>
+  </div>
+  <div class="term-row">
+    <span class="term-label">Date of SAFE</span>
+    <span class="term-value"><span class="field">[Date of Execution]</span></span>
+  </div>
+</div>
+
+<h2>1. Events</h2>
+
+<h3>1.1 Equity Financing</h3>
+<p>If there is an Equity Financing before the termination of this Safe, on the initial closing of such Equity Financing, this Safe will automatically convert into the number of shares of Safe Preferred Stock equal to the Purchase Amount divided by the Conversion Price.</p>
+
+<p>In connection with the automatic conversion of this Safe into shares of Safe Preferred Stock, the Investor will execute and deliver to the Company all of the transaction documents related to the Equity Financing; provided, that such documents (i) are the same documents to be entered into with the purchasers of Standard Preferred Stock, with appropriate variations for the Safe Preferred Stock if applicable, and (ii) have customary exceptions to any drag-along applicable to the Investor, including (without limitation) limited representations and warranties and limited liability and indemnification obligations on the part of the Investor.</p>
+
+<h3>1.2 Liquidity Event</h3>
+<p>If there is a Liquidity Event before the termination of this Safe, the Investor will automatically be entitled to receive a portion of Proceeds, due and payable to the Investor immediately prior to, or concurrent with, the consummation of such Liquidity Event, equal to the greater of (i) the Purchase Amount (the "<strong>Cash-Out Amount</strong>") or (ii) the amount payable on the number of shares of Common Stock equal to the Purchase Amount divided by the Liquidity Price (the "<strong>Conversion Amount</strong>"). If any of the Company's securityholders are given a choice as to the form and amount of Proceeds to be received in a Liquidity Event, the Investor will be given the same choice, provided that the Investor may not choose to receive a form of consideration that the Investor would not be entitled to receive as a result of owning the number of shares of Common Stock equal to the Purchase Amount divided by the Liquidity Price.</p>
+
+<h3>1.3 Dissolution Event</h3>
+<p>If there is a Dissolution Event before the termination of this Safe, the Investor will automatically be entitled to receive a portion of Proceeds equal to the Cash-Out Amount, due and payable to the Investor immediately prior to the consummation of the Dissolution Event.</p>
+
+<h3>1.4 Termination</h3>
+<p>This Safe will automatically terminate (without relieving the Company of any obligations arising from a prior breach of or non-compliance with this Safe) immediately following the earliest to occur of: (i) the issuance of Capital Stock to the Investor pursuant to the automatic conversion of this Safe under Section 1.1; or (ii) the payment, or setting aside for payment, of amounts due the Investor pursuant to Section 1.2 or Section 1.3.</p>
+
+<div class="page-break"></div>
+
+<h2>2. Definitions</h2>
+
+<div class="def-block">
+  <p><span class="def-term">"Capital Stock"</span> means the capital stock of the Company, including, without limitation, the "Common Stock" and the "Preferred Stock."</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Change of Control"</span> means (i) a transaction or series of related transactions in which any "person" or "group" (within the meaning of Section 13(d) and 14(d) of the Securities Exchange Act of 1934) becomes the "beneficial owner" (as defined in Rule 13d-3), directly or indirectly, of more than 50% of the outstanding voting securities of the Company having the right to vote for the election of members of the Company's board of directors, (ii) any reorganization, merger or consolidation of the Company, other than a transaction or series of related transactions in which the holders of the voting securities of the Company outstanding immediately prior to such transaction or series of related transactions retain, immediately after such transaction or series of related transactions, at least a majority of the total voting power represented by the outstanding voting securities of the Company or such other surviving or resulting entity or (iii) a sale, lease or other disposition of all or substantially all of the assets of the Company.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Company Capitalization"</span> means the sum, as of immediately prior to the Equity Financing, of: (1) all shares of Capital Stock (on an as-converted basis) issued and outstanding, assuming exercise or conversion of all outstanding vested and unvested options, warrants and other convertible securities, but excluding (A) convertible promissory notes; and (B) this Safe and all other Safes, if applicable; and (2) all shares of Common Stock reserved and available for future grant under any equity incentive or similar plan of the Company, and/or any equity incentive or similar plan to be created or increased in connection with the Equity Financing.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Conversion Price"</span> means the quotient obtained by dividing the Valuation Cap by the Company Capitalization.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Equity Financing"</span> means a bona fide transaction or series of transactions with the principal purpose of raising capital, pursuant to which the Company issues and sells Preferred Stock at a fixed valuation, including but not limited to, a pre-money or post-money valuation.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Initial Public Offering"</span> means the closing of the Company's first firm commitment underwritten initial public offering of Common Stock pursuant to a registration statement filed under the Securities Act.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Liquidity Event"</span> means a Change of Control or an Initial Public Offering.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Post-Money Valuation Cap"</span> has the meaning set forth on the first page of this Safe. For the avoidance of doubt, the Valuation Cap is the maximum pre-money valuation at which this Safe's purchase amount will convert to equity, calculated as set forth herein.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Safe Preferred Stock"</span> means the shares of the series of Preferred Stock issued to the Investor in an Equity Financing, having the identical rights, privileges, preferences and restrictions as the shares of Standard Preferred Stock, other than with respect to: (i) the per-share liquidation preference and the per-share dividend amounts for the Safe Preferred Stock, which will equal the Conversion Price as calculated pursuant to Section 1(a) applied to the Purchase Amount of this Safe, divided by the number of shares of Safe Preferred Stock issued to the Investor; and (ii) the basis for any dividend rights.</p>
+</div>
+<div class="def-block">
+  <p><span class="def-term">"Valuation Cap"</span> means <strong>$5,000,000 (Five Million U.S. Dollars)</strong>, as set forth on the first page of this Safe.</p>
+</div>
+
+<h2>3. Company Representations</h2>
+
+<p>The Company represents and warrants to the Investor that:</p>
+<ol>
+  <li>The Company is a limited liability company duly organized, validly existing and in good standing under the laws of the state of Arizona, and has the power and authority to own, lease and operate its properties and carry on its business as now conducted.</li>
+  <li>The execution, delivery and performance by the Company of this Safe is within the power of the Company and, other than with respect to the actions to be taken when equity is to be issued to the Investor, has been duly authorized by all necessary actions on the part of the Company. This Safe constitutes a legal, valid and binding obligation of the Company, enforceable against the Company in accordance with its terms, except as limited by bankruptcy, insolvency or other laws of general application relating to or affecting the enforcement of creditors' rights generally and general principles of equity.</li>
+  <li>The Company's current capitalization table is accurate and complete as provided to Investor.</li>
+  <li>No consents or approvals are required in connection with the performance of this Safe, other than: (i) the Company's corporate approvals; (ii) any qualifications or filings under applicable securities laws; and (iii) necessary corporate approvals for the authorization of Capital Stock issuable pursuant to Section 1.</li>
+</ol>
+
+<h2>4. Investor Representations</h2>
+
+<p>The Investor represents and warrants to the Company that:</p>
+<ol>
+  <li>The Investor has full legal capacity, power and authority to execute and deliver this Safe and to perform its obligations hereunder. This Safe constitutes valid and binding obligation of the Investor, enforceable in accordance with its terms, except as limited by bankruptcy, insolvency or other laws of general application relating to or affecting the enforcement of creditors' rights generally and general principles of equity.</li>
+  <li>The Investor is purchasing this Safe and the securities to be acquired by the Investor hereunder for its own account for investment, not as a nominee or agent, and not with a view to, or for resale in connection with, the distribution thereof, and the Investor has no present intention of selling, granting any participation in, or otherwise distributing the same.</li>
+  <li>The Investor is an accredited investor as such term is defined in Rule 501 of Regulation D under the Securities Act. The Investor has such business and financial experience as is required to give it the capacity to evaluate the merits and risks of its prospective investment in the Company.</li>
+</ol>
+
+<h2>5. Miscellaneous</h2>
+
+<h3>5.1 Governing Law and Jurisdiction</h3>
+<p>This Safe shall be governed by the laws of the State of <strong>Arizona</strong>, without regard to the conflicts of law provisions of such jurisdiction.</p>
+
+<h3>5.2 Entire Agreement</h3>
+<p>This Safe constitutes the entire agreement and understanding of the Company and the Investor with respect to its subject matter, and supersedes all prior agreements, understandings, negotiations and discussions.</p>
+
+<h3>5.3 Amendments</h3>
+<p>Any provision of this Safe may be amended, waived or modified only upon the written consent of the Company and the Investor.</p>
+
+<h3>5.4 Notices</h3>
+<p>Any notice required or permitted by this Safe will be deemed sufficient when delivered personally or by overnight courier or sent by email to the relevant address listed on the signature page, or 48 hours after being deposited in the U.S. mail as certified or registered mail with postage prepaid, addressed to the party to be notified at such party's address listed on the signature page, as subsequently modified by written notice.</p>
+
+<h3>5.5 No Rights as Stockholder Until Conversion</h3>
+<p>The Investor is not entitled, as a holder of this Safe, to vote or receive dividends or be deemed the holder of Capital Stock for any purpose, nor will anything contained herein be construed to confer on the Investor, as such, any of the rights of a stockholder of the Company or any right to vote for the election of directors or upon any matter submitted to stockholders at any meeting thereof, or to give or withhold consent to any corporate action or to receive notice of meetings, or to receive subscription rights or otherwise until shares have been issued upon the terms described herein.</p>
+
+<!-- SIGNATURE BLOCK -->
+<div class="sig-block">
+  <div class="sig-party">
+    <h3>The Company</h3>
+    <p class="sig-prefill">Rip It Labs, LLC</p>
+    <p class="sig-prefill">an Arizona limited liability company</p>
+    <div class="sig-line"></div>
+    <div class="sig-label">Signature</div>
+    <div class="sig-line" style="margin-top:14pt;"></div>
+    <div class="sig-label">Name: <span style="font-weight:600; color:#111827; text-transform:none;">Tim Cavin</span></div>
+    <div class="sig-line" style="margin-top:10pt;"></div>
+    <div class="sig-label">Title: <span style="font-weight:600; color:#111827; text-transform:none;">Chief Executive Officer</span></div>
+    <div class="sig-line" style="margin-top:10pt;"></div>
+    <div class="sig-label">Date</div>
+    <br>
+    <div class="sig-label">Address: <span style="color:#374151; text-transform:none; font-weight:normal;">Rip It Labs, LLC<br>Scottsdale, AZ<br>tim@ripitlabs.com</span></div>
+  </div>
+
+  <div class="sig-party">
+    <h3>The Investor</h3>
+    <p><span class="field">[Investor Legal Name or Entity Name]</span></p>
+    <div class="sig-line"></div>
+    <div class="sig-label">Signature</div>
+    <div class="sig-line" style="margin-top:14pt;"></div>
+    <div class="sig-label">Name: <span class="field" style="font-size:9pt;">[Print Name]</span></div>
+    <div class="sig-line" style="margin-top:10pt;"></div>
+    <div class="sig-label">Title: <span class="field" style="font-size:9pt;">[Title, if entity]</span></div>
+    <div class="sig-line" style="margin-top:10pt;"></div>
+    <div class="sig-label">Date</div>
+    <br>
+    <div class="sig-label">Address:<br><span class="field" style="font-size:9pt; display:block; min-height:40pt;">[Investor Address]</span></div>
+    <div class="sig-label" style="margin-top:6pt;">Email: <span class="field" style="font-size:9pt;">[Investor Email]</span></div>
+  </div>
+</div>
+
+</body>
+</html>

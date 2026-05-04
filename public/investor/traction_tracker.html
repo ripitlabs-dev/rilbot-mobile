@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traction Tracker — Rip It Labs</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:  #0f172a;
+    --blue:  #2563eb;
+    --gold:  #f59e0b;
+    --light: #f8fafc;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --green: #10b981;
+    --card-bg: #1e293b;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 10pt;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 40px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 36px;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 24px;
+  }
+
+  .header-left h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26pt;
+    font-weight: 900;
+    color: #f8fafc;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .header-left .sub {
+    font-size: 10pt;
+    color: #64748b;
+    margin-top: 5px;
+  }
+
+  .header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .last-updated {
+    font-size: 9pt;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .last-updated span[contenteditable] {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    padding: 2px 8px;
+    min-width: 120px;
+    color: #94a3b8;
+    outline: none;
+  }
+
+  .last-updated span[contenteditable]:focus {
+    border-color: var(--gold);
+    color: #f8fafc;
+  }
+
+  .btn {
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .btn-gold:hover { background: #d97706; }
+
+  .btn-outline {
+    background: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+  }
+
+  .btn-outline:hover {
+    border-color: #64748b;
+    color: #e2e8f0;
+  }
+
+  .header-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 4px;
+  }
+
+  .section-sub {
+    font-size: 9pt;
+    color: #64748b;
+    margin-bottom: 18px;
+  }
+
+  /* KEY METRICS GRID */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .metric-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .metric-card:hover { border-color: #475569; }
+
+  .metric-label {
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .metric-value {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #f8fafc;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-value[contenteditable] {
+    outline: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .metric-value[contenteditable]:focus {
+    border-bottom-color: var(--gold);
+  }
+
+  .metric-hint {
+    font-size: 8pt;
+    color: #475569;
+    font-style: italic;
+  }
+
+  .metric-card.gold { border-color: rgba(245,158,11,0.4); }
+  .metric-card.gold .metric-value { color: var(--gold); }
+
+  /* MILESTONE TRACKER */
+  .milestones-section {
+    margin-bottom: 36px;
+  }
+
+  .milestones-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .milestone-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .milestone-item:hover { border-color: #475569; }
+
+  .milestone-item.done {
+    border-color: rgba(16,185,129,0.4);
+    background: rgba(16,185,129,0.08);
+  }
+
+  .milestone-cb {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #475569;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .milestone-item.done .milestone-cb {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .milestone-cb svg {
+    display: none;
+  }
+
+  .milestone-item.done .milestone-cb svg {
+    display: block;
+  }
+
+  .milestone-label {
+    font-size: 9.5pt;
+    color: #94a3b8;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .milestone-item.done .milestone-label {
+    color: #e2e8f0;
+    text-decoration: line-through;
+    text-decoration-color: #10b981;
+  }
+
+  .milestone-date {
+    font-size: 8pt;
+    color: #475569;
+    font-style: italic;
+  }
+
+  /* INVESTOR PIPELINE TABLE */
+  .pipeline-section {
+    margin-bottom: 36px;
+  }
+
+  .pipeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+  }
+
+  .pipeline-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    font-weight: 600;
+    border-bottom: 1px solid #334155;
+    background: #1e293b;
+  }
+
+  .pipeline-table th:first-child { border-radius: 8px 0 0 0; }
+  .pipeline-table th:last-child { border-radius: 0 8px 0 0; }
+
+  .pipeline-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #1e293b;
+    color: #94a3b8;
+    background: #162032;
+    vertical-align: middle;
+  }
+
+  .pipeline-table tr:last-child td { border-bottom: none; }
+  .pipeline-table tr:last-child td:first-child { border-radius: 0 0 0 8px; }
+  .pipeline-table tr:last-child td:last-child { border-radius: 0 0 8px 0; }
+
+  .pipeline-table td[contenteditable] {
+    outline: none;
+    transition: background 0.15s;
+  }
+
+  .pipeline-table td[contenteditable]:focus {
+    background: #1e293b;
+    color: #f8fafc;
+  }
+
+  .pipeline-table td[contenteditable]:empty::before {
+    content: attr(data-placeholder);
+    color: #334155;
+    pointer-events: none;
+  }
+
+  .stage-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stage-new { background: #1e3a5f; color: #60a5fa; }
+  .stage-intro { background: #1a3a2a; color: #34d399; }
+  .stage-dd { background: #3b2700; color: #f59e0b; }
+  .stage-pass { background: #2d1515; color: #f87171; }
+
+  .add-row-btn {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px dashed #334155;
+    color: #475569;
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    transition: all 0.2s;
+  }
+
+  .add-row-btn:hover {
+    border-color: #64748b;
+    color: #94a3b8;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-section {
+    margin-bottom: 36px;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .testimonial-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 48pt;
+    color: #334155;
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    line-height: 1;
+  }
+
+  .testimonial-text {
+    font-size: 9.5pt;
+    color: #94a3b8;
+    line-height: 1.6;
+    padding-top: 28px;
+    font-style: italic;
+    outline: none;
+  }
+
+  .testimonial-text[contenteditable]:empty::before {
+    content: "Paste testimonial here...";
+    color: #334155;
+    pointer-events: none;
+  }
+
+  .testimonial-text[contenteditable]:focus {
+    color: #e2e8f0;
+  }
+
+  .testimonial-author {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--gold);
+    margin-top: 10px;
+    outline: none;
+  }
+
+  .testimonial-author[contenteditable]:empty::before {
+    content: "— Name, Title, Company";
+    color: #334155;
+    pointer-events: none;
+  }
+
+  .add-testimonial-btn {
+    margin-top: 12px;
+    background: transparent;
+    border: 1px dashed #334155;
+    color: #475569;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 9pt;
+    transition: all 0.2s;
+  }
+
+  .add-testimonial-btn:hover {
+    border-color: #64748b;
+    color: #94a3b8;
+  }
+
+  /* SAVE INDICATOR */
+  .save-indicator {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--green);
+    color: #fff;
+    font-size: 9pt;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .save-indicator.show { opacity: 1; }
+
+  @media print {
+    body { background: #fff; color: #1e293b; padding: 20px; }
+    .header-buttons { display: none; }
+    .add-row-btn, .add-testimonial-btn { display: none; }
+    .save-indicator { display: none; }
+    .metric-card { background: #f8fafc; border-color: #e2e8f0; }
+    .metric-value { color: #0f172a; }
+    .milestone-item { background: #f8fafc; }
+    .pipeline-table td { background: #f8fafc; }
+    .testimonial-card { background: #f8fafc; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Traction Tracker</h1>
+    <div class="sub">Live metrics dashboard — update weekly before investor calls</div>
+  </div>
+  <div class="header-right">
+    <div class="logo">Rip It Labs</div>
+    <div class="last-updated">
+      Last updated: <span contenteditable="true" id="last-updated-date">Click to set date</span>
+    </div>
+    <div class="header-buttons">
+      <button class="btn btn-outline" onclick="window.print()">Print / PDF</button>
+      <button class="btn btn-gold" onclick="saveAll()">Save Progress</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== KEY METRICS ==================== -->
+<div class="milestones-section">
+  <div class="section-title">Key Metrics</div>
+  <div class="section-sub">Click any number to edit. Saved automatically when you click Save.</div>
+</div>
+
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="metric-label">Total Registered Users</div>
+    <div class="metric-value" contenteditable="true" id="m-users" data-placeholder="0">—</div>
+    <div class="metric-hint">All-time signups</div>
+  </div>
+  <div class="metric-card gold">
+    <div class="metric-label">Paying Customers</div>
+    <div class="metric-value" contenteditable="true" id="m-paying" data-placeholder="0">—</div>
+    <div class="metric-hint">Active subscriptions</div>
+  </div>
+  <div class="metric-card gold">
+    <div class="metric-label">Monthly Recurring Revenue</div>
+    <div class="metric-value" contenteditable="true" id="m-mrr" data-placeholder="$0">—</div>
+    <div class="metric-hint">MRR (not ARR)</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Total Agent Runs</div>
+    <div class="metric-value" contenteditable="true" id="m-runs" data-placeholder="0">—</div>
+    <div class="metric-hint">Cumulative queries processed</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">RILCOIN Holders</div>
+    <div class="metric-value" contenteditable="true" id="m-rilcoin" data-placeholder="0">—</div>
+    <div class="metric-hint">Unique wallet addresses</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">API Keys Issued</div>
+    <div class="metric-value" contenteditable="true" id="m-api" data-placeholder="0">—</div>
+    <div class="metric-hint">Developer accounts</div>
+  </div>
+</div>
+
+<!-- ==================== MILESTONE TRACKER ==================== -->
+<div class="milestones-section">
+  <div class="section-title">Milestone Tracker</div>
+  <div class="section-sub">Click a milestone to mark it complete.</div>
+  <div class="milestones-grid" id="milestones-grid">
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-0">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">RILBOT deployed to production domain</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-1">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">First 10 paying customers</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-2">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">First 100 paying customers</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-3">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">$10K MRR</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-4">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">$50K MRR</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-5">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">Arizona LLC formed</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-6">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">RILCOIN DEX listing live</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-7">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">Product Hunt launch</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-8">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">First enterprise contract ($10K+ ACV)</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-9">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">HIPAA compliance achieved</span>
+    </div>
+
+    <div class="milestone-item" onclick="toggleMilestone(this)" id="ms-10">
+      <div class="milestone-cb">
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span class="milestone-label">Series A raised</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== INVESTOR PIPELINE ==================== -->
+<div class="pipeline-section">
+  <div class="section-title">Investor Pipeline</div>
+  <div class="section-sub">Click any cell to edit. Tab to move between cells.</div>
+  <table class="pipeline-table">
+    <thead>
+      <tr>
+        <th>Investor / Fund</th>
+        <th>Type</th>
+        <th>Stage</th>
+        <th>Last Contact</th>
+        <th>Next Step</th>
+      </tr>
+    </thead>
+    <tbody id="pipeline-body">
+      <tr>
+        <td contenteditable="true" data-placeholder="Investor name or fund"></td>
+        <td contenteditable="true" data-placeholder="Angel / VC / Family Office"></td>
+        <td contenteditable="true" data-placeholder="Intro / DD / Term Sheet"></td>
+        <td contenteditable="true" data-placeholder="mm/dd/yy"></td>
+        <td contenteditable="true" data-placeholder="Send deck / Schedule call"></td>
+      </tr>
+      <tr>
+        <td contenteditable="true" data-placeholder="Investor name or fund"></td>
+        <td contenteditable="true" data-placeholder="Angel / VC / Family Office"></td>
+        <td contenteditable="true" data-placeholder="Intro / DD / Term Sheet"></td>
+        <td contenteditable="true" data-placeholder="mm/dd/yy"></td>
+        <td contenteditable="true" data-placeholder="Send deck / Schedule call"></td>
+      </tr>
+      <tr>
+        <td contenteditable="true" data-placeholder="Investor name or fund"></td>
+        <td contenteditable="true" data-placeholder="Angel / VC / Family Office"></td>
+        <td contenteditable="true" data-placeholder="Intro / DD / Term Sheet"></td>
+        <td contenteditable="true" data-placeholder="mm/dd/yy"></td>
+        <td contenteditable="true" data-placeholder="Send deck / Schedule call"></td>
+      </tr>
+      <tr>
+        <td contenteditable="true" data-placeholder="Investor name or fund"></td>
+        <td contenteditable="true" data-placeholder="Angel / VC / Family Office"></td>
+        <td contenteditable="true" data-placeholder="Intro / DD / Term Sheet"></td>
+        <td contenteditable="true" data-placeholder="mm/dd/yy"></td>
+        <td contenteditable="true" data-placeholder="Send deck / Schedule call"></td>
+      </tr>
+      <tr>
+        <td contenteditable="true" data-placeholder="Investor name or fund"></td>
+        <td contenteditable="true" data-placeholder="Angel / VC / Family Office"></td>
+        <td contenteditable="true" data-placeholder="Intro / DD / Term Sheet"></td>
+        <td contenteditable="true" data-placeholder="mm/dd/yy"></td>
+        <td contenteditable="true" data-placeholder="Send deck / Schedule call"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="add-row-btn" onclick="addPipelineRow()">+ Add investor row</button>
+</div>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<div class="testimonials-section">
+  <div class="section-title">Customer Testimonials</div>
+  <div class="section-sub">Click to add testimonials as you collect them. Use these on investor calls and in the pitch deck.</div>
+  <div class="testimonial-grid" id="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-text" contenteditable="true"></div>
+      <div class="testimonial-author" contenteditable="true"></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-text" contenteditable="true"></div>
+      <div class="testimonial-author" contenteditable="true"></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-text" contenteditable="true"></div>
+      <div class="testimonial-author" contenteditable="true"></div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-text" contenteditable="true"></div>
+      <div class="testimonial-author" contenteditable="true"></div>
+    </div>
+  </div>
+  <button class="add-testimonial-btn" onclick="addTestimonial()">+ Add testimonial</button>
+</div>
+
+<div class="save-indicator" id="save-indicator">Saved</div>
+
+<script>
+  const STORE_KEY = 'rilfather_traction_v1';
+
+  function toggleMilestone(el) {
+    el.classList.toggle('done');
+    autoSave();
+  }
+
+  function addPipelineRow() {
+    const tbody = document.getElementById('pipeline-body');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td contenteditable="true" data-placeholder="Investor name or fund"></td>
+      <td contenteditable="true" data-placeholder="Angel / VC / Family Office"></td>
+      <td contenteditable="true" data-placeholder="Intro / DD / Term Sheet"></td>
+      <td contenteditable="true" data-placeholder="mm/dd/yy"></td>
+      <td contenteditable="true" data-placeholder="Send deck / Schedule call"></td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  function addTestimonial() {
+    const grid = document.getElementById('testimonial-grid');
+    const card = document.createElement('div');
+    card.className = 'testimonial-card';
+    card.innerHTML = `
+      <div class="testimonial-text" contenteditable="true"></div>
+      <div class="testimonial-author" contenteditable="true"></div>
+    `;
+    grid.appendChild(card);
+  }
+
+  function saveAll() {
+    const data = {
+      lastUpdated: document.getElementById('last-updated-date').innerText,
+      metrics: {
+        users: document.getElementById('m-users').innerText,
+        paying: document.getElementById('m-paying').innerText,
+        mrr: document.getElementById('m-mrr').innerText,
+        runs: document.getElementById('m-runs').innerText,
+        rilcoin: document.getElementById('m-rilcoin').innerText,
+        api: document.getElementById('m-api').innerText,
+      },
+      milestones: [],
+      pipeline: [],
+      testimonials: []
+    };
+
+    document.querySelectorAll('.milestone-item').forEach((el, i) => {
+      data.milestones.push({ id: el.id, done: el.classList.contains('done') });
+    });
+
+    document.querySelectorAll('#pipeline-body tr').forEach(row => {
+      const cells = row.querySelectorAll('td');
+      data.pipeline.push(Array.from(cells).map(c => c.innerText));
+    });
+
+    document.querySelectorAll('.testimonial-card').forEach(card => {
+      data.testimonials.push({
+        text: card.querySelector('.testimonial-text').innerText,
+        author: card.querySelector('.testimonial-author').innerText
+      });
+    });
+
+    localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    showSaved();
+  }
+
+  function loadAll() {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      if (data.lastUpdated) document.getElementById('last-updated-date').innerText = data.lastUpdated;
+      if (data.metrics) {
+        if (data.metrics.users) document.getElementById('m-users').innerText = data.metrics.users;
+        if (data.metrics.paying) document.getElementById('m-paying').innerText = data.metrics.paying;
+        if (data.metrics.mrr) document.getElementById('m-mrr').innerText = data.metrics.mrr;
+        if (data.metrics.runs) document.getElementById('m-runs').innerText = data.metrics.runs;
+        if (data.metrics.rilcoin) document.getElementById('m-rilcoin').innerText = data.metrics.rilcoin;
+        if (data.metrics.api) document.getElementById('m-api').innerText = data.metrics.api;
+      }
+      if (data.milestones) {
+        data.milestones.forEach(m => {
+          const el = document.getElementById(m.id);
+          if (el && m.done) el.classList.add('done');
+        });
+      }
+      if (data.pipeline && data.pipeline.length) {
+        const tbody = document.getElementById('pipeline-body');
+        tbody.innerHTML = '';
+        data.pipeline.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = row.map(cell => `<td contenteditable="true" data-placeholder="">${cell}</td>`).join('');
+          tbody.appendChild(tr);
+        });
+      }
+      if (data.testimonials && data.testimonials.length) {
+        const grid = document.getElementById('testimonial-grid');
+        grid.innerHTML = '';
+        data.testimonials.forEach(t => {
+          const card = document.createElement('div');
+          card.className = 'testimonial-card';
+          card.innerHTML = `
+            <div class="testimonial-text" contenteditable="true">${t.text}</div>
+            <div class="testimonial-author" contenteditable="true">${t.author}</div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+    } catch(e) {}
+  }
+
+  function showSaved() {
+    const el = document.getElementById('save-indicator');
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2000);
+  }
+
+  let autoSaveTimer;
+  function autoSave() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(saveAll, 1200);
+  }
+
+  document.addEventListener('input', autoSave);
+
+  window.addEventListener('load', loadAll);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Model — Rip It Labs</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#e2e8f0;min-height:100vh}
+.topbar{background:#0d0d16;border-bottom:1px solid rgba(255,255,255,0.06);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.badge{background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:0.5px}
+.back{color:#64748b;font-size:13px;text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.back:hover{color:#94a3b8}
+.container{max-width:1200px;margin:0 auto;padding:48px 24px}
+h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+.grad{background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{color:#64748b;font-size:16px;margin-bottom:40px}
+/* Tabs */
+.tabs{display:flex;gap:4px;background:#0d0d16;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:4px;margin-bottom:32px;flex-wrap:wrap}
+.tab{padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;border:none;background:transparent;color:#64748b;white-space:nowrap}
+.tab.active{background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(139,92,246,0.2));color:#e2e8f0;border:1px solid rgba(59,130,246,0.3)}
+.tab:hover:not(.active){color:#94a3b8}
+/* Panel */
+.panel{display:none}
+.panel.active{display:block}
+/* Table */
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.06)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead tr{background:rgba(59,130,246,0.08)}
+th{padding:12px 16px;text-align:left;font-weight:700;color:#94a3b8;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap}
+td{padding:11px 16px;border-top:1px solid rgba(255,255,255,0.04);white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,0.02)}
+.row-header{color:#e2e8f0;font-weight:600}
+.num{font-family:'Space Grotesk',monospace;text-align:right}
+.pos{color:#10b981}
+.neg{color:#ef4444}
+.neutral{color:#64748b}
+.highlight-row td{background:rgba(59,130,246,0.06);font-weight:700}
+.section-row td{background:rgba(255,255,255,0.03);color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:8px 16px}
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.card{background:#0d0d16;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px}
+.card-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.card-val{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700}
+.card-sub{font-size:12px;color:#64748b;margin-top:4px}
+/* Assumptions */
+.assumptions{background:#0d0d16;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px;margin-bottom:24px}
+.assumptions h3{font-size:15px;font-weight:700;margin-bottom:16px;color:#e2e8f0}
+.assume-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.assume-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:8px;font-size:13px}
+.assume-key{color:#94a3b8}
+.assume-val{font-weight:600;color:#e2e8f0;font-family:'Space Grotesk',sans-serif}
+/* Chart bars */
+.bar-chart{display:flex;align-items:flex-end;gap:8px;height:160px;margin:24px 0;padding:0 4px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bar{width:100%;border-radius:4px 4px 0 0;transition:height 0.3s;min-height:4px;background:linear-gradient(180deg,#3b82f6,#8b5cf6)}
+.bar-label{font-size:11px;color:#64748b;text-align:center}
+.bar-val{font-size:11px;font-weight:700;color:#e2e8f0;text-align:center;font-family:'Space Grotesk',sans-serif}
+/* Safe */
+.safe-doc{max-width:760px;margin:0 auto;background:#0d0d16;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:40px}
+.safe-doc h2{font-size:20px;font-weight:800;margin-bottom:24px;text-align:center}
+.safe-section{margin-bottom:24px}
+.safe-section h4{font-size:13px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.safe-section p{font-size:13px;line-height:1.8;color:#94a3b8}
+.safe-section strong{color:#e2e8f0}
+.info-box{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:12px 16px;font-size:13px;color:#94a3b8;margin-bottom:24px}
+.info-box strong{color:#3b82f6}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="logo">RILBOT</span>
+    <span class="badge">INVESTOR DATA ROOM</span>
+  </div>
+  <a href="javascript:history.back()" class="back">← Back to Data Room</a>
+</div>
+
+<div class="container">
+  <h1>Financial <span class="grad">Model</span></h1>
+  <p class="subtitle">Rip It Labs — 5-Year Projections · Seed Round · Fiscal Year 2026–2030</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('summary', this)">Executive Summary</button>
+    <button class="tab" onclick="showTab('pl', this)">P&L</button>
+    <button class="tab" onclick="showTab('growth', this)">User Growth</button>
+    <button class="tab" onclick="showTab('cashflow', this)">Cash Flow</button>
+    <button class="tab" onclick="showTab('unit', this)">Unit Economics</button>
+    <button class="tab" onclick="showTab('assumptions', this)">Assumptions</button>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="panel active" id="tab-summary">
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Seed Round Ask</div>
+        <div class="card-val" style="color:#3b82f6">$500K</div>
+        <div class="card-sub">SAFE · $5M post-money cap</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Year 1 ARR Target</div>
+        <div class="card-val" style="color:#10b981">$180K</div>
+        <div class="card-sub">Pilot + subscription revenue</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Year 3 ARR</div>
+        <div class="card-val" style="color:#8b5cf6">$4.2M</div>
+        <div class="card-sub">630 agents · 3 tiers</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Break-Even</div>
+        <div class="card-val" style="color:#f59e0b">Month 18</div>
+        <div class="card-sub">Assuming $500K seed close</div>
+      </div>
+      <div class="card">
+        <div class="card-label">5-Year Revenue</div>
+        <div class="card-val" style="color:#ec4899">$22M</div>
+        <div class="card-sub">Conservative model</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Runway at Close</div>
+        <div class="card-val" style="color:#06b6d4">18 mo</div>
+        <div class="card-sub">With $500K seed</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Revenue Model:</strong> Three streams — (1) Per-agent-run pricing in RILCOIN (100–1,000 RIL/run by tier), (2) Enterprise subscriptions ($499–$2,499/mo), (3) RILCOIN token appreciation and treasury yield. Platform takes 15% of all agent transactions.
+    </div>
+
+    <p style="font-size:13px;color:#64748b;margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px">Annual Revenue Projection</p>
+    <div class="bar-chart">
+      <div class="bar-wrap">
+        <div class="bar-val">$180K</div>
+        <div class="bar" style="height:11%"></div>
+        <div class="bar-label">2026</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-val">$840K</div>
+        <div class="bar" style="height:38%"></div>
+        <div class="bar-label">2027</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-val">$4.2M</div>
+        <div class="bar" style="height:58%"></div>
+        <div class="bar-label">2028</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-val">$10.8M</div>
+        <div class="bar" style="height:79%"></div>
+        <div class="bar-label">2029</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-val">$22M</div>
+        <div class="bar" style="height:100%"></div>
+        <div class="bar-label">2030</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P&L -->
+  <div class="panel" id="tab-pl">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:260px">Line Item</th>
+            <th class="num">2026</th>
+            <th class="num">2027</th>
+            <th class="num">2028</th>
+            <th class="num">2029</th>
+            <th class="num">2030</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="6">Revenue</td></tr>
+          <tr><td class="row-header">Agent Run Revenue</td><td class="num">$72,000</td><td class="num">$336,000</td><td class="num">$1,680,000</td><td class="num">$4,320,000</td><td class="num">$8,800,000</td></tr>
+          <tr><td class="row-header">Enterprise Subscriptions</td><td class="num">$60,000</td><td class="num">$360,000</td><td class="num">$1,800,000</td><td class="num">$4,680,000</td><td class="num">$9,600,000</td></tr>
+          <tr><td class="row-header">Platform Fees (15%)</td><td class="num">$48,000</td><td class="num">$144,000</td><td class="num">$720,000</td><td class="num">$1,800,000</td><td class="num">$3,600,000</td></tr>
+          <tr class="highlight-row"><td class="row-header">Total Revenue</td><td class="num pos">$180,000</td><td class="num pos">$840,000</td><td class="num pos">$4,200,000</td><td class="num pos">$10,800,000</td><td class="num pos">$22,000,000</td></tr>
+
+          <tr class="section-row"><td colspan="6">Cost of Revenue</td></tr>
+          <tr><td class="row-header">AI API Costs (Anthropic)</td><td class="num">$28,800</td><td class="num">$126,000</td><td class="num">$588,000</td><td class="num">$1,404,000</td><td class="num">$2,860,000</td></tr>
+          <tr><td class="row-header">Infrastructure / Hosting</td><td class="num">$12,000</td><td class="num">$36,000</td><td class="num">$120,000</td><td class="num">$360,000</td><td class="num">$720,000</td></tr>
+          <tr class="highlight-row"><td class="row-header">Gross Profit</td><td class="num pos">$139,200</td><td class="num pos">$678,000</td><td class="num pos">$3,492,000</td><td class="num pos">$9,036,000</td><td class="num pos">$18,420,000</td></tr>
+          <tr class="highlight-row"><td class="row-header">Gross Margin</td><td class="num pos">77%</td><td class="num pos">81%</td><td class="num pos">83%</td><td class="num pos">84%</td><td class="num pos">84%</td></tr>
+
+          <tr class="section-row"><td colspan="6">Operating Expenses</td></tr>
+          <tr><td class="row-header">Salaries & Contractors</td><td class="num">$180,000</td><td class="num">$360,000</td><td class="num">$900,000</td><td class="num">$2,160,000</td><td class="num">$4,400,000</td></tr>
+          <tr><td class="row-header">Sales & Marketing</td><td class="num">$60,000</td><td class="num">$180,000</td><td class="num">$600,000</td><td class="num">$1,440,000</td><td class="num">$2,860,000</td></tr>
+          <tr><td class="row-header">Legal & Compliance</td><td class="num">$24,000</td><td class="num">$48,000</td><td class="num">$120,000</td><td class="num">$240,000</td><td class="num">$440,000</td></tr>
+          <tr><td class="row-header">G&A</td><td class="num">$36,000</td><td class="num">$72,000</td><td class="num">$180,000</td><td class="num">$360,000</td><td class="num">$660,000</td></tr>
+          <tr class="highlight-row"><td class="row-header">Total OpEx</td><td class="num neg">($300,000)</td><td class="num neg">($660,000)</td><td class="num neg">($1,800,000)</td><td class="num neg">($4,200,000)</td><td class="num neg">($8,360,000)</td></tr>
+
+          <tr class="section-row"><td colspan="6">Bottom Line</td></tr>
+          <tr class="highlight-row"><td class="row-header">EBITDA</td><td class="num neg">($160,800)</td><td class="num pos">$18,000</td><td class="num pos">$1,692,000</td><td class="num pos">$4,836,000</td><td class="num pos">$10,060,000</td></tr>
+          <tr class="highlight-row"><td class="row-header">EBITDA Margin</td><td class="num neg">-89%</td><td class="num pos">2%</td><td class="num pos">40%</td><td class="num pos">45%</td><td class="num pos">46%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- USER GROWTH -->
+  <div class="panel" id="tab-growth">
+    <div class="cards" style="margin-bottom:24px">
+      <div class="card">
+        <div class="card-label">End of 2026</div>
+        <div class="card-val" style="color:#3b82f6">120</div>
+        <div class="card-sub">Active users</div>
+      </div>
+      <div class="card">
+        <div class="card-label">End of 2027</div>
+        <div class="card-val" style="color:#10b981">560</div>
+        <div class="card-sub">+367% YoY</div>
+      </div>
+      <div class="card">
+        <div class="card-label">End of 2028</div>
+        <div class="card-val" style="color:#8b5cf6">2,800</div>
+        <div class="card-sub">+400% YoY</div>
+      </div>
+      <div class="card">
+        <div class="card-label">End of 2030</div>
+        <div class="card-val" style="color:#ec4899">28,000</div>
+        <div class="card-sub">Enterprise + SMB</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num">2026</th>
+            <th class="num">2027</th>
+            <th class="num">2028</th>
+            <th class="num">2029</th>
+            <th class="num">2030</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-header">Total Active Users</td><td class="num">120</td><td class="num">560</td><td class="num">2,800</td><td class="num">9,800</td><td class="num">28,000</td></tr>
+          <tr><td class="row-header">Enterprise Clients</td><td class="num">4</td><td class="num">25</td><td class="num">125</td><td class="num">400</td><td class="num">1,100</td></tr>
+          <tr><td class="row-header">SMB Users</td><td class="num">80</td><td class="num">420</td><td class="num">2,400</td><td class="num">8,600</td><td class="num">24,000</td></tr>
+          <tr><td class="row-header">Pilot Program Users</td><td class="num">36</td><td class="num">115</td><td class="num">275</td><td class="num">800</td><td class="num">2,900</td></tr>
+          <tr><td class="row-header">Agent Runs / Month</td><td class="num">600</td><td class="num">2,800</td><td class="num">14,000</td><td class="num">36,000</td><td class="num">73,000</td></tr>
+          <tr><td class="row-header">RILCOIN Wallets</td><td class="num">240</td><td class="num">1,120</td><td class="num">5,600</td><td class="num">19,600</td><td class="num">56,000</td></tr>
+          <tr class="highlight-row"><td class="row-header">Avg Revenue / User</td><td class="num">$1,500</td><td class="num">$1,500</td><td class="num">$1,500</td><td class="num">$1,102</td><td class="num">$786</td></tr>
+          <tr class="highlight-row"><td class="row-header">YoY User Growth</td><td class="num neutral">—</td><td class="num pos">+367%</td><td class="num pos">+400%</td><td class="num pos">+250%</td><td class="num pos">+186%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CASH FLOW -->
+  <div class="panel" id="tab-cashflow">
+    <div class="info-box">
+      <strong>Assumption:</strong> $500K SAFE closes Q2 2026. Burn rate $25K/mo in Year 1, scaling with headcount. Break-even at Month 18.
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Quarter</th>
+            <th class="num">Revenue</th>
+            <th class="num">OpEx</th>
+            <th class="num">Net Burn</th>
+            <th class="num">Cash Balance</th>
+            <th class="num">Runway</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="6">2026 — Post Seed Close</td></tr>
+          <tr><td class="row-header">Q2 2026</td><td class="num pos">$18,000</td><td class="num neg">($75,000)</td><td class="num neg">($57,000)</td><td class="num">$443,000</td><td class="neutral num">~7.7 mo</td></tr>
+          <tr><td class="row-header">Q3 2026</td><td class="num pos">$36,000</td><td class="num neg">($75,000)</td><td class="num neg">($39,000)</td><td class="num">$404,000</td><td class="neutral num">~6.9 mo</td></tr>
+          <tr><td class="row-header">Q4 2026</td><td class="num pos">$54,000</td><td class="num neg">($75,000)</td><td class="num neg">($21,000)</td><td class="num">$383,000</td><td class="neutral num">~6.6 mo</td></tr>
+          <tr class="section-row"><td colspan="6">2027</td></tr>
+          <tr><td class="row-header">Q1 2027</td><td class="num pos">$126,000</td><td class="num neg">($120,000)</td><td class="num pos">$6,000</td><td class="num pos">$389,000</td><td class="pos num">Cash flow +</td></tr>
+          <tr><td class="row-header">Q2 2027</td><td class="num pos">$168,000</td><td class="num neg">($150,000)</td><td class="num pos">$18,000</td><td class="num pos">$407,000</td><td class="pos num">Cash flow +</td></tr>
+          <tr><td class="row-header">Q3 2027</td><td class="num pos">$210,000</td><td class="num neg">($165,000)</td><td class="num pos">$45,000</td><td class="num pos">$452,000</td><td class="pos num">Cash flow +</td></tr>
+          <tr><td class="row-header">Q4 2027</td><td class="num pos">$336,000</td><td class="num neg">($225,000)</td><td class="num pos">$111,000</td><td class="num pos">$563,000</td><td class="pos num">Series A ready</td></tr>
+          <tr class="highlight-row"><td class="row-header">Break-Even Point</td><td class="num pos" colspan="5">Month 18 (Q1 2027) — Operating cash flow positive</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- UNIT ECONOMICS -->
+  <div class="panel" id="tab-unit">
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">CAC (Customer Acq. Cost)</div>
+        <div class="card-val" style="color:#3b82f6">$420</div>
+        <div class="card-sub">Blended avg, Year 1</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LTV (SMB)</div>
+        <div class="card-val" style="color:#10b981">$3,600</div>
+        <div class="card-sub">24-mo avg retention</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LTV (Enterprise)</div>
+        <div class="card-val" style="color:#8b5cf6">$28,800</div>
+        <div class="card-sub">36-mo avg retention</div>
+      </div>
+      <div class="card">
+        <div class="card-label">LTV:CAC Ratio</div>
+        <div class="card-val" style="color:#f59e0b">8.6x</div>
+        <div class="card-sub">Blended (target 3x+)</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Payback Period</div>
+        <div class="card-val" style="color:#ec4899">3.4 mo</div>
+        <div class="card-sub">SMB segment</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Net Revenue Retention</div>
+        <div class="card-val" style="color:#06b6d4">118%</div>
+        <div class="card-sub">Expansion via more runs</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>SMB</th><th>Enterprise</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-header">Monthly Subscription</td><td class="num">$149–$499</td><td class="num">$499–$2,499</td><td class="neutral">3 tiers</td></tr>
+          <tr><td class="row-header">Avg Agent Runs/Mo</td><td class="num">5</td><td class="num">40</td><td class="neutral">Est. usage</td></tr>
+          <tr><td class="row-header">Avg Run Value</td><td class="num">$80</td><td class="num">$300</td><td class="neutral">Blended tier</td></tr>
+          <tr><td class="row-header">Churn Rate</td><td class="num">4.2%/mo</td><td class="num">1.8%/mo</td><td class="neutral">Monthly</td></tr>
+          <tr><td class="row-header">Avg Lifetime</td><td class="num">24 mo</td><td class="num">56 mo</td><td class="neutral">1/churn</td></tr>
+          <tr><td class="row-header">ARPU</td><td class="num">$150/mo</td><td class="num">$800/mo</td><td class="neutral">Sub + runs</td></tr>
+          <tr class="highlight-row"><td class="row-header">LTV</td><td class="num pos">$3,600</td><td class="num pos">$44,800</td><td class="pos">Strong unit econ</td></tr>
+          <tr class="highlight-row"><td class="row-header">Gross Margin / Customer</td><td class="num pos">78%</td><td class="num pos">84%</td><td class="pos">High margin SaaS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ASSUMPTIONS -->
+  <div class="panel" id="tab-assumptions">
+    <div class="assumptions">
+      <h3>Revenue Assumptions</h3>
+      <div class="assume-grid">
+        <div class="assume-item"><span class="assume-key">Basic agent run</span><span class="assume-val">100–150 RIL</span></div>
+        <div class="assume-item"><span class="assume-key">Standard agent run</span><span class="assume-val">300–500 RIL</span></div>
+        <div class="assume-item"><span class="assume-key">Enterprise agent run</span><span class="assume-val">750–1,000 RIL</span></div>
+        <div class="assume-item"><span class="assume-key">Platform fee (all transactions)</span><span class="assume-val">15%</span></div>
+        <div class="assume-item"><span class="assume-key">Enterprise subscription (avg)</span><span class="assume-val">$1,200/mo</span></div>
+        <div class="assume-item"><span class="assume-key">SMB subscription (avg)</span><span class="assume-val">$299/mo</span></div>
+        <div class="assume-item"><span class="assume-key">RILCOIN price assumption</span><span class="assume-val">$0.001/RIL</span></div>
+        <div class="assume-item"><span class="assume-key">Free trial conversion rate</span><span class="assume-val">22%</span></div>
+      </div>
+    </div>
+    <div class="assumptions">
+      <h3>Growth Assumptions</h3>
+      <div class="assume-grid">
+        <div class="assume-item"><span class="assume-key">Monthly user growth (Y1)</span><span class="assume-val">12%/mo</span></div>
+        <div class="assume-item"><span class="assume-key">Monthly user growth (Y2)</span><span class="assume-val">18%/mo</span></div>
+        <div class="assume-item"><span class="assume-key">Monthly user growth (Y3+)</span><span class="assume-val">8%/mo</span></div>
+        <div class="assume-item"><span class="assume-key">Pilot → paid conversion</span><span class="assume-val">35%</span></div>
+        <div class="assume-item"><span class="assume-key">SMB monthly churn</span><span class="assume-val">4.2%</span></div>
+        <div class="assume-item"><span class="assume-key">Enterprise monthly churn</span><span class="assume-val">1.8%</span></div>
+        <div class="assume-item"><span class="assume-key">Word-of-mouth coefficient</span><span class="assume-val">0.3</span></div>
+        <div class="assume-item"><span class="assume-key">Enterprise sales cycle</span><span class="assume-val">45 days</span></div>
+      </div>
+    </div>
+    <div class="assumptions">
+      <h3>Cost Assumptions</h3>
+      <div class="assume-grid">
+        <div class="assume-item"><span class="assume-key">Anthropic API cost/run</span><span class="assume-val">$0.04/run</span></div>
+        <div class="assume-item"><span class="assume-key">Cloud infrastructure</span><span class="assume-val">$1,000/mo (Y1)</span></div>
+        <div class="assume-item"><span class="assume-key">Headcount (Year 1)</span><span class="assume-val">2 FTE</span></div>
+        <div class="assume-item"><span class="assume-key">Headcount (Year 3)</span><span class="assume-val">8 FTE</span></div>
+        <div class="assume-item"><span class="assume-key">Avg fully-loaded salary</span><span class="assume-val">$120K</span></div>
+        <div class="assume-item"><span class="assume-key">Marketing spend (% rev)</span><span class="assume-val">15%</span></div>
+        <div class="assume-item"><span class="assume-key">Legal / compliance</span><span class="assume-val">$2K/mo</span></div>
+        <div class="assume-item"><span class="assume-key">G&A overhead</span><span class="assume-val">$3K/mo</span></div>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:0">
+      <strong>Disclaimer:</strong> These projections are forward-looking estimates based on current assumptions and market conditions. Actual results may differ materially. This model is for discussion purposes only and does not constitute a guarantee of future performance.
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>

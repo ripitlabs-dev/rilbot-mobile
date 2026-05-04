@@ -1,0 +1,8 @@
+Shareholder,Type,Shares,Pre-Seed %,Investment,Post-Seed %,Notes
+Tim Cavin,Founder,10000000,100.0%,$0,80.0%,Vesting: 4yr/1yr cliff
+Seed Investors,Investor,2500000,0.0%,$1000000,20.0%,YC SAFE @ $5M cap
+Option Pool,Reserved,0,0.0%,$0,0.0%,10% pool planned post-Series A
+Total,,12500000,100%,$1000000,100%,
+Pre-money Valuation,,,$4000000,,,
+Post-money Valuation,,,$5000000,,,
+Price Per Share,,,$ 0.40,,,

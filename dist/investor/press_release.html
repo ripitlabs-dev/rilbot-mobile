@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press Release — Rip It Labs Seed Round</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:  #0f172a;
+    --blue:  #2563eb;
+    --gold:  #f59e0b;
+    --light: #f8fafc;
+    --muted: #64748b;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.7;
+    color: #1e293b;
+    background: #fff;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--navy);
+    margin-bottom: 28px;
+  }
+
+  .logo-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+  }
+
+  .logo-mark span {
+    color: var(--gold);
+  }
+
+  .release-status {
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #dc2626;
+    background: #fee2e2;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  /* INSTRUCTIONS BANNER */
+  .instructions {
+    background: #fefce8;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 9pt;
+    color: #92400e;
+    line-height: 1.6;
+  }
+
+  .instructions strong { color: #78350f; }
+
+  /* NEWSWIRE HEADER */
+  .pr-header {
+    margin-bottom: 28px;
+  }
+
+  .pr-for-release {
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .pr-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 22pt;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .pr-subhead {
+    font-size: 12pt;
+    font-weight: 400;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .pr-dateline {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+
+  .pr-dateline span {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  /* BODY */
+  .pr-body p {
+    margin-bottom: 16px;
+    font-size: 10.5pt;
+    line-height: 1.75;
+    color: #1e293b;
+  }
+
+  .pr-body p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 36pt;
+    font-weight: 700;
+    color: var(--navy);
+    float: left;
+    line-height: 0.85;
+    margin-right: 6px;
+    margin-top: 8px;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    margin: 28px 0;
+    padding: 24px 28px;
+    background: var(--light);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+  }
+
+  .pull-quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .pull-quote-attr {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 28px 0;
+  }
+
+  .stat-cell {
+    background: var(--light);
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* BOILERPLATE */
+  .pr-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  .boilerplate {
+    font-size: 9pt;
+    color: #475569;
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .boilerplate strong {
+    font-weight: 700;
+    color: #334155;
+  }
+
+  .contact-block {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    font-size: 9.5pt;
+    color: #334155;
+  }
+
+  .contact-block strong {
+    display: block;
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+
+  .pr-end {
+    text-align: center;
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 10px;
+    margin: 20px 0 8px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* FILL-IN FIELDS */
+  .fill {
+    background: #fef08a;
+    border-radius: 3px;
+    padding: 0 4px;
+    cursor: text;
+    outline: none;
+    font-style: normal;
+    font-weight: 600;
+    color: #78350f;
+    border-bottom: 2px dashed #f59e0b;
+  }
+
+  .fill:focus {
+    background: #fde047;
+    border-bottom-color: #d97706;
+  }
+
+  /* PRINT BUTTON */
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 22px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: background 0.2s;
+  }
+
+  .print-btn:hover { background: #1e3a5f; }
+
+  @media print {
+    body { padding: 28px; }
+    .instructions { display: none; }
+    .print-btn { display: none; }
+    .release-status { background: none; border: 1px solid #dc2626; color: #dc2626; }
+    .fill { background: none; border-bottom: none; color: inherit; font-weight: inherit; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="logo-mark">Rip It<span> Labs</span></div>
+  <div class="release-status">For Immediate Release</div>
+</div>
+
+<div class="instructions">
+  <strong>Before sending:</strong> Fill in all highlighted yellow fields (click to edit). Confirm the raise amount, date, city, lead investor name and quote. Have your PR contact or legal counsel review before distribution. This release is formatted for PR Newswire, Business Wire, or direct journalist outreach.
+</div>
+
+<!-- PRESS RELEASE HEADER -->
+<div class="pr-header">
+  <div class="pr-for-release">Press Release &nbsp;|&nbsp; For Immediate Release</div>
+
+  <div class="pr-headline">
+    Rip It Labs Raises $<span class="fill" contenteditable="true" title="Enter raise amount, e.g. 1.2M">X</span> Seed Round to Build the World's Largest AI Agent Corporation
+  </div>
+
+  <div class="pr-subhead">
+    RILBOT marketplace launches with 455 specialized AI agents across 30+ industries — democratizing access to expert guidance for 33 million American small businesses
+  </div>
+
+  <div class="pr-dateline">
+    <span contenteditable="true" class="fill" title="City, State">City, State</span> &nbsp;—&nbsp; <span contenteditable="true" class="fill" title="Enter date">Month DD, 2026</span>
+  </div>
+</div>
+
+<!-- PRESS RELEASE BODY -->
+<div class="pr-body">
+
+  <p>
+    Rip It Labs, the company building the world's first full-spectrum AI agent corporation, today announced it has closed a $<span class="fill" contenteditable="true">X million</span> seed round led by <span class="fill" contenteditable="true">[Lead Investor Name / Fund]</span>. The proceeds will be used to accelerate the commercial launch of RILBOT, the company's AI agent marketplace that gives any business owner instant access to a team of specialized AI experts across law, finance, healthcare, construction, real estate, and 25 other industries — all for $49 per month.
+  </p>
+
+  <div class="stats-row">
+    <div class="stat-cell">
+      <div class="stat-num">455</div>
+      <div class="stat-label">AI Agents</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">36</div>
+      <div class="stat-label">Expert Teams</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">30</div>
+      <div class="stat-label">Industries</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">$49</div>
+      <div class="stat-label">Per Month</div>
+    </div>
+  </div>
+
+  <p>
+    RILBOT takes a fundamentally different approach to AI assistants. Rather than a single general-purpose chatbot, RILBOT deploys teams of domain-scoped specialists — a Corporate Attorney, Contract Specialist, Compliance Officer, Litigation Advisor, and IP Counsel working in parallel — that analyze a user's query simultaneously and synthesize their findings into a structured action plan. The result is expert-grade guidance that previously required retaining multiple professionals at hundreds of dollars per hour, now available to any small business owner in under 60 seconds.
+  </p>
+
+  <div class="pull-quote">
+    <div class="pull-quote-text">"We didn't build a chatbot. We built a corporation — with every department. Legal, healthcare, finance, construction, hotel management, real estate. Four hundred and fifty-five specialists available to any entrepreneur, anywhere, for less than the price of a streaming subscription. That's what we've built, and that's what this round is going to scale."</div>
+    <div class="pull-quote-attr">— Tim Cavin, Founder &amp; CEO, Rip It Labs</div>
+  </div>
+
+  <p>
+    The platform's architecture sets it apart from general-purpose AI tools. Each RILBOT agent is scoped to a specific domain with institutional knowledge, guardrails, and professional context built in. When a user submits a query to a team, five to seven specialists process it in parallel before a synthesis layer generates a unified Executive Summary and Action Plan. The platform also includes a no-code agent builder, allowing businesses to create custom AI specialists for their specific needs, and a developer API that enables third-party applications to embed RILBOT's expert teams into their own products.
+  </p>
+
+  <div class="pull-quote">
+    <div class="pull-quote-text">"<span class="fill" contenteditable="true">[Lead investor quote: e.g., 'Rip It Labs is building the infrastructure layer for expert AI at a moment when every small business in America is asking the same question: how do I compete with larger players who have full teams? Tim's answer — give them the team — is the right answer at the right time.']</span>"</div>
+    <div class="pull-quote-attr">— <span class="fill" contenteditable="true">[Investor Name]</span>, <span class="fill" contenteditable="true">[Title]</span>, <span class="fill" contenteditable="true">[Fund Name]</span></div>
+  </div>
+
+  <p>
+    Alongside the RILBOT platform, Rip It Labs has developed RILCOIN — a native utility token that powers transactions within the RILBOT ecosystem. RILCOIN provides access to premium agent tiers, high-volume API usage, and enterprise features. The token is designed as a pure utility instrument: demand for RILCOIN is directly tied to platform usage, creating a flywheel between product growth and token value. A DEX listing is planned for later this year following completion of a formal utility token legal opinion.
+  </p>
+
+  <p>
+    The company is targeting the 33 million small businesses in the United States as its primary market — entrepreneurs and operators who currently lack affordable access to the legal, financial, and operational expertise that larger companies retain as full-time staff. With the seed funding, Rip It Labs plans to hire its first commercial team, complete HIPAA compliance certification for its Healthcare vertical, launch on Product Hunt, and reach $50,000 in monthly recurring revenue within 18 months of the close.
+  </p>
+
+</div>
+
+<hr class="pr-divider">
+
+<!-- ABOUT -->
+<div class="boilerplate">
+  <strong>About Rip It Labs</strong><br>
+  Rip It Labs is the company behind RILBOT, the world's first full-spectrum AI agent corporation. RILBOT provides 455 specialized AI agents organized into 48 expert teams across 30 industries, giving any business owner access to instant expert guidance in law, finance, healthcare, construction, real estate, hotel management, and more — all for $49 per month. The platform includes multi-agent team routing, a no-code agent builder, a developer API, and RILCOIN, a native utility token powering ecosystem transactions. Rip It Labs is headquartered in <span class="fill" contenteditable="true">[City, State]</span>.
+</div>
+
+<!-- CONTACT -->
+<div class="contact-block">
+  <strong>Media Contact</strong>
+  Tim Cavin, Founder &amp; CEO — Rip It Labs<br>
+  Email: <span class="fill" contenteditable="true">tim@ripitlabs.com</span><br>
+  Phone: <span class="fill" contenteditable="true">[Phone Number]</span><br>
+  Web: rilfather.com
+</div>
+
+<div class="pr-end">###</div>
+
+<button class="print-btn" onclick="window.print()">Print / Export PDF</button>
+
+</body>
+</html>

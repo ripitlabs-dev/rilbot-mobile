@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RILCOIN (RIL) — Tokenomics Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:   #0f172a;
+    --blue:   #2563eb;
+    --gold:   #f59e0b;
+    --purple: #7c3aed;
+    --green:  #16a34a;
+    --teal:   #0891b2;
+    --red:    #dc2626;
+    --light:  #f8fafc;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    color: #1e293b;
+    background: #fff;
+    max-width: 210mm;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1e1b4b 100%);
+    padding: 28pt 32pt 22pt;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: 'RIL';
+    position: absolute;
+    right: 24pt;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 72pt;
+    font-weight: 900;
+    color: rgba(245,158,11,0.08);
+    pointer-events: none;
+  }
+  .page-header .eyebrow {
+    font-size: 7pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6pt;
+  }
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26pt;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 6pt;
+  }
+  .page-header h1 span { color: var(--gold); }
+  .page-header .subtitle { font-size: 8.5pt; color: #94a3b8; }
+  .token-meta {
+    display: flex;
+    gap: 16pt;
+    margin-top: 14pt;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: rgba(255,255,255,0.08);
+    border: 0.5pt solid rgba(255,255,255,0.15);
+    border-radius: 4pt;
+    padding: 4pt 10pt;
+    font-size: 7.5pt;
+    color: #e2e8f0;
+  }
+  .meta-pill strong { color: var(--gold); margin-right: 4pt; }
+
+  /* CONTENT */
+  .content { padding: 22pt 32pt; }
+
+  /* SECTION HEADERS */
+  .section { margin-bottom: 24pt; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--navy);
+    border-bottom: 2pt solid var(--gold);
+    padding-bottom: 4pt;
+    margin-bottom: 12pt;
+  }
+
+  /* SUPPLY STATS */
+  .supply-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10pt;
+    margin-bottom: 16pt;
+  }
+  .supply-card {
+    background: var(--light);
+    border: 1pt solid var(--border);
+    border-radius: 5pt;
+    padding: 10pt;
+    text-align: center;
+  }
+  .supply-card .sc-label { font-size: 6.5pt; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3pt; }
+  .supply-card .sc-value { font-size: 13pt; font-weight: 700; color: var(--navy); line-height: 1; }
+  .supply-card .sc-sub { font-size: 6.5pt; color: #94a3b8; margin-top: 2pt; }
+
+  /* ALLOCATION TABLE */
+  .alloc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin-bottom: 14pt;
+  }
+  .alloc-table th {
+    background: var(--navy);
+    color: #fff;
+    padding: 7pt 10pt;
+    text-align: left;
+    font-weight: 600;
+    font-size: 7.5pt;
+  }
+  .alloc-table td {
+    padding: 7pt 10pt;
+    border-bottom: 0.5pt solid var(--border);
+    vertical-align: middle;
+  }
+  .alloc-table tr:last-child td { border-bottom: none; font-weight: 700; background: #f1f5f9; }
+
+  /* COLOR DOTS */
+  .dot {
+    display: inline-block;
+    width: 8pt;
+    height: 8pt;
+    border-radius: 50%;
+    margin-right: 5pt;
+    vertical-align: middle;
+  }
+
+  /* DONUT CHART VISUAL */
+  .chart-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20pt;
+    margin: 12pt 0;
+  }
+  .donut-svg { flex-shrink: 0; }
+  .legend-list { list-style: none; }
+  .legend-list li {
+    display: flex;
+    align-items: center;
+    gap: 6pt;
+    margin-bottom: 5pt;
+    font-size: 8pt;
+  }
+  .legend-bar {
+    width: 24pt;
+    height: 8pt;
+    border-radius: 2pt;
+    flex-shrink: 0;
+  }
+  .legend-pct { font-weight: 700; width: 24pt; }
+  .legend-name { color: #475569; }
+
+  /* PIE SEGMENTS via SVG */
+
+  /* UTILITY CARDS */
+  .utility-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10pt;
+    margin: 8pt 0;
+  }
+  .utility-card {
+    border: 1pt solid var(--border);
+    border-radius: 5pt;
+    padding: 12pt;
+    display: flex;
+    gap: 10pt;
+    align-items: flex-start;
+  }
+  .utility-icon { font-size: 18pt; flex-shrink: 0; }
+  .utility-card h3 { font-size: 9pt; font-weight: 700; color: var(--navy); margin-bottom: 3pt; }
+  .utility-card p { font-size: 7.5pt; color: #475569; line-height: 1.5; }
+
+  /* APPRECIATION MECHANICS */
+  .appreciate-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6pt;
+  }
+  .appr-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10pt;
+    background: var(--light);
+    border-radius: 4pt;
+    padding: 8pt 10pt;
+    border-left: 3pt solid var(--blue);
+  }
+  .appr-row:nth-child(2) { border-left-color: var(--gold); }
+  .appr-row:nth-child(3) { border-left-color: var(--purple); }
+  .appr-row:nth-child(4) { border-left-color: var(--green); }
+  .appr-num {
+    font-size: 7pt;
+    font-weight: 700;
+    color: var(--blue);
+    background: #eff6ff;
+    padding: 2pt 5pt;
+    border-radius: 2pt;
+    flex-shrink: 0;
+    margin-top: 1pt;
+  }
+  .appr-row:nth-child(2) .appr-num { color: var(--gold); background: #fffbeb; }
+  .appr-row:nth-child(3) .appr-num { color: var(--purple); background: #faf5ff; }
+  .appr-row:nth-child(4) .appr-num { color: var(--green); background: #f0fdf4; }
+  .appr-body { font-size: 8.5pt; color: #1e293b; }
+  .appr-body strong { color: var(--navy); }
+
+  /* VESTING TIMELINE */
+  .vest-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin: 8pt 0;
+  }
+  .vest-table th {
+    background: #1e293b;
+    color: #fff;
+    padding: 6pt 8pt;
+    font-size: 7pt;
+    text-align: left;
+    font-weight: 600;
+  }
+  .vest-table td {
+    padding: 5pt 8pt;
+    border-bottom: 0.5pt solid var(--border);
+    vertical-align: middle;
+  }
+  .vest-bar-cell { width: 120pt; }
+  .vest-bar-wrap { background: #e2e8f0; border-radius: 2pt; height: 7pt; }
+  .vest-bar-fill { border-radius: 2pt; height: 7pt; }
+
+  /* DEX SECTION */
+  .dex-box {
+    background: linear-gradient(135deg, #1e1b4b 0%, var(--navy) 100%);
+    color: #fff;
+    border-radius: 6pt;
+    padding: 14pt 16pt;
+    display: flex;
+    gap: 16pt;
+    align-items: center;
+    margin: 8pt 0;
+  }
+  .dex-icon { font-size: 28pt; flex-shrink: 0; }
+  .dex-body h3 { font-size: 10pt; font-weight: 700; color: var(--gold); margin-bottom: 4pt; }
+  .dex-body p { font-size: 7.5pt; color: #94a3b8; line-height: 1.5; }
+  .dex-stats { display: flex; gap: 12pt; margin-top: 8pt; }
+  .dex-stat .ds-val { font-size: 12pt; font-weight: 700; color: #fff; }
+  .dex-stat .ds-label { font-size: 6pt; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* RISK BOX */
+  .risk-box {
+    background: #fef2f2;
+    border: 1pt solid #fca5a5;
+    border-radius: 5pt;
+    padding: 12pt 14pt;
+    margin: 10pt 0;
+  }
+  .risk-box h3 { font-size: 9pt; font-weight: 700; color: var(--red); margin-bottom: 6pt; display: flex; align-items: center; gap: 5pt; }
+  .risk-list { list-style: none; }
+  .risk-list li {
+    font-size: 7.5pt;
+    color: #7f1d1d;
+    padding: 2pt 0;
+    padding-left: 12pt;
+    position: relative;
+  }
+  .risk-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--red);
+  }
+
+  /* DISCLAIMER */
+  .disclaimer {
+    background: #f8fafc;
+    border: 1pt solid var(--border);
+    border-radius: 4pt;
+    padding: 10pt 12pt;
+    font-size: 7pt;
+    color: #64748b;
+    line-height: 1.5;
+    margin-top: 16pt;
+  }
+  .disclaimer strong { color: var(--navy); }
+
+  footer {
+    background: var(--navy);
+    color: #475569;
+    font-size: 6pt;
+    text-align: center;
+    padding: 7pt;
+    margin-top: 20pt;
+  }
+  footer span { color: var(--gold); }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .page-break { page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="eyebrow">Rip It Labs — Token Overview</div>
+  <h1><span>RILCOIN</span> (RIL)<br>Tokenomics Overview</h1>
+  <p class="subtitle">Utility token powering the world's largest AI agent marketplace. Built on Base (Coinbase L2). Fixed supply. No mint function.</p>
+  <div class="token-meta">
+    <div class="meta-pill"><strong>Symbol</strong> RIL</div>
+    <div class="meta-pill"><strong>Network</strong> Base (Coinbase L2)</div>
+    <div class="meta-pill"><strong>Standard</strong> ERC-20</div>
+    <div class="meta-pill"><strong>Total Supply</strong> 1,000,000,000 (fixed)</div>
+    <div class="meta-pill"><strong>Mint Function</strong> None</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- TOKEN BASICS -->
+  <div class="section">
+    <div class="section-title">Token Fundamentals</div>
+
+    <div class="supply-row">
+      <div class="supply-card">
+        <div class="sc-label">Total Supply</div>
+        <div class="sc-value">1B</div>
+        <div class="sc-sub">Fixed forever. No inflation.</div>
+      </div>
+      <div class="supply-card">
+        <div class="sc-label">Network</div>
+        <div class="sc-value" style="font-size:11pt;">Base L2</div>
+        <div class="sc-sub">Coinbase L2 — low gas, EVM-compatible</div>
+      </div>
+      <div class="supply-card">
+        <div class="sc-label">Standard</div>
+        <div class="sc-value">ERC-20</div>
+        <div class="sc-sub">Fully composable with DeFi</div>
+      </div>
+      <div class="supply-card">
+        <div class="sc-label">Listing</div>
+        <div class="sc-value" style="font-size:10pt; color: var(--green);">DEX</div>
+        <div class="sc-sub">Uniswap v3 on Base at launch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALLOCATION -->
+  <div class="section">
+    <div class="section-title">Token Allocation</div>
+
+    <div class="chart-wrap">
+      <!-- SVG Donut Chart -->
+      <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140">
+        <!-- Treasury 40% - #2563eb -->
+        <circle cx="70" cy="70" r="50" fill="transparent" stroke="#2563eb" stroke-width="28"
+          stroke-dasharray="125.66 188.5" stroke-dashoffset="0" transform="rotate(-90 70 70)"/>
+        <!-- Public 30% - #f59e0b -->
+        <circle cx="70" cy="70" r="50" fill="transparent" stroke="#f59e0b" stroke-width="28"
+          stroke-dasharray="94.25 219.91" stroke-dashoffset="-125.66" transform="rotate(-90 70 70)"/>
+        <!-- Team 20% - #7c3aed -->
+        <circle cx="70" cy="70" r="50" fill="transparent" stroke="#7c3aed" stroke-width="28"
+          stroke-dasharray="62.83 251.33" stroke-dashoffset="-219.91" transform="rotate(-90 70 70)"/>
+        <!-- Advisors 10% - #0891b2 -->
+        <circle cx="70" cy="70" r="50" fill="transparent" stroke="#0891b2" stroke-width="28"
+          stroke-dasharray="31.42 282.74" stroke-dashoffset="-282.74" transform="rotate(-90 70 70)"/>
+        <!-- Center text -->
+        <text x="70" y="66" text-anchor="middle" font-size="9" font-weight="700" fill="#0f172a" font-family="Inter, sans-serif">1,000,000,000</text>
+        <text x="70" y="78" text-anchor="middle" font-size="7" fill="#64748b" font-family="Inter, sans-serif">Total Supply</text>
+      </svg>
+
+      <ul class="legend-list">
+        <li>
+          <div class="legend-bar" style="background:#2563eb;"></div>
+          <span class="legend-pct" style="color:#2563eb;">40%</span>
+          <span class="legend-name">Treasury / Platform (400M RIL)</span>
+        </li>
+        <li>
+          <div class="legend-bar" style="background:#f59e0b;"></div>
+          <span class="legend-pct" style="color:#f59e0b;">30%</span>
+          <span class="legend-name">Public / Liquidity (300M RIL)</span>
+        </li>
+        <li>
+          <div class="legend-bar" style="background:#7c3aed;"></div>
+          <span class="legend-pct" style="color:#7c3aed;">20%</span>
+          <span class="legend-name">Team (200M RIL)</span>
+        </li>
+        <li>
+          <div class="legend-bar" style="background:#0891b2;"></div>
+          <span class="legend-pct" style="color:#0891b2;">10%</span>
+          <span class="legend-name">Advisors (100M RIL)</span>
+        </li>
+      </ul>
+    </div>
+
+    <table class="alloc-table">
+      <thead>
+        <tr>
+          <th>Allocation</th>
+          <th>%</th>
+          <th>Amount (RIL)</th>
+          <th>Vesting Schedule</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="dot" style="background:#2563eb;"></span>Treasury / Platform</td>
+          <td><strong>40%</strong></td>
+          <td>400,000,000</td>
+          <td>Locked 2 years, then linear release over 3 years</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#f59e0b;"></span>Public / Liquidity</td>
+          <td><strong>30%</strong></td>
+          <td>300,000,000</td>
+          <td>Unlocked at DEX listing — bootstraps initial liquidity</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#7c3aed;"></span>Team</td>
+          <td><strong>20%</strong></td>
+          <td>200,000,000</td>
+          <td>4-year vesting with 1-year cliff</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#0891b2;"></span>Advisors</td>
+          <td><strong>10%</strong></td>
+          <td>100,000,000</td>
+          <td>2-year vesting with 6-month cliff</td>
+        </tr>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td><strong>100%</strong></td>
+          <td><strong>1,000,000,000</strong></td>
+          <td><em>Fixed supply — no additional minting ever</em></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Vesting Timeline -->
+    <h3 style="font-size:9pt; font-weight:700; color:var(--navy); margin: 10pt 0 6pt;">Vesting Timeline at a Glance</h3>
+    <table class="vest-table">
+      <thead>
+        <tr>
+          <th>Allocation</th>
+          <th>Cliff</th>
+          <th>Full Unlock</th>
+          <th>Visual</th>
+          <th>Rationale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="dot" style="background:#2563eb;"></span>Treasury</td>
+          <td>2 years</td>
+          <td>5 years</td>
+          <td class="vest-bar-cell"><div class="vest-bar-wrap"><div class="vest-bar-fill" style="width:80%;background:#2563eb;"></div></div></td>
+          <td>Long lock ensures stability</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#f59e0b;"></span>Public</td>
+          <td>None</td>
+          <td>At launch</td>
+          <td class="vest-bar-cell"><div class="vest-bar-wrap"><div class="vest-bar-fill" style="width:100%;background:#f59e0b;"></div></div></td>
+          <td>Liquidity bootstrap</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#7c3aed;"></span>Team</td>
+          <td>1 year</td>
+          <td>4 years</td>
+          <td class="vest-bar-cell"><div class="vest-bar-wrap"><div class="vest-bar-fill" style="width:60%;background:#7c3aed;"></div></div></td>
+          <td>Aligned with company growth</td>
+        </tr>
+        <tr>
+          <td><span class="dot" style="background:#0891b2;"></span>Advisors</td>
+          <td>6 months</td>
+          <td>2 years</td>
+          <td class="vest-bar-cell"><div class="vest-bar-wrap"><div class="vest-bar-fill" style="width:40%;background:#0891b2;"></div></div></td>
+          <td>Incentivizes active advising</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGE 2 START -->
+  <div class="page-break"></div>
+
+  <!-- TOKEN UTILITY -->
+  <div class="section">
+    <div class="section-title">Token Utility — What RIL Does</div>
+
+    <div class="utility-grid">
+      <div class="utility-card">
+        <div class="utility-icon">⚡</div>
+        <div>
+          <h3>Pay for Agent Runs</h3>
+          <p>Any agent run on RILBOT can be paid with RIL tokens. Token payments receive a 15% discount versus fiat pricing, driving organic token demand proportional to platform usage growth.</p>
+        </div>
+      </div>
+      <div class="utility-card">
+        <div class="utility-icon">🔒</div>
+        <div>
+          <h3>Stake for Enterprise Access</h3>
+          <p>Users who stake a minimum RIL threshold unlock Enterprise tier features — unlimited runs, priority routing, advanced memory, and API access — without the monthly subscription fee.</p>
+        </div>
+      </div>
+      <div class="utility-card">
+        <div class="utility-icon">🗳️</div>
+        <div>
+          <h3>Governance Voting</h3>
+          <p>RIL holders vote on platform governance proposals: new agent verticals to build, pricing changes, treasury deployments, and protocol upgrades. Token = voice in platform direction.</p>
+        </div>
+      </div>
+      <div class="utility-card">
+        <div class="utility-icon">💰</div>
+        <div>
+          <h3>Revenue Sharing (Planned)</h3>
+          <p>Long-term stakers (12+ month lock) will participate in a revenue sharing pool funded by a percentage of platform gross revenue. Rewards loyalty and reduces circulating supply.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY RIL APPRECIATES -->
+  <div class="section">
+    <div class="section-title">Why RIL Appreciates — The Demand Mechanics</div>
+
+    <div class="appreciate-list">
+      <div class="appr-row">
+        <span class="appr-num">01</span>
+        <div class="appr-body"><strong>Fixed Supply Creates Scarcity.</strong> There will never be more than 1,000,000,000 RIL. No governance mechanism, no team decision, no smart contract function can mint additional tokens. As demand grows, price appreciation is the only equilibrium.</div>
+      </div>
+      <div class="appr-row">
+        <span class="appr-num">02</span>
+        <div class="appr-body"><strong>Agent Runs Create Deflationary Pressure.</strong> Every agent run paid in RIL is either burned or sent to the treasury (governance-controlled). Consistent daily agent run volume creates consistent token removal from circulation. More users = more burns = less supply.</div>
+      </div>
+      <div class="appr-row">
+        <span class="appr-num">03</span>
+        <div class="appr-body"><strong>More Users → More Token Demand.</strong> As RILBOT user count grows — from 1,200 in Y1 to 35,000 in Y3 — the aggregate demand for RIL tokens (for payments, staking, and governance) scales proportionally. Token demand is directly coupled to product-market growth.</div>
+      </div>
+      <div class="appr-row">
+        <span class="appr-num">04</span>
+        <div class="appr-body"><strong>DEX Liquidity Bootstrapped from Public Allocation.</strong> 300M RIL (30% of supply) is allocated for DEX liquidity pools at launch. This creates deep, stable trading markets immediately, preventing early volatility that deters institutional holders and long-term stakers.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEX LISTING -->
+  <div class="section">
+    <div class="section-title">DEX Listing Strategy</div>
+    <div class="dex-box">
+      <div class="dex-icon">🔷</div>
+      <div class="dex-body">
+        <h3>Uniswap v3 on Base (Coinbase L2)</h3>
+        <p>Initial liquidity deployment on Uniswap v3 on the Base network. Base offers sub-cent transaction fees, near-instant finality, and deep integration with Coinbase's 100M+ user base. Coinbase Wallet and Coinbase exchange integration provides immediate access for mainstream crypto holders — not just DeFi natives.</p>
+        <div class="dex-stats">
+          <div class="dex-stat">
+            <div class="ds-val">~$0.001</div>
+            <div class="ds-label">Gas per TX on Base</div>
+          </div>
+          <div class="dex-stat">
+            <div class="ds-val">EVM</div>
+            <div class="ds-label">Full Compatibility</div>
+          </div>
+          <div class="dex-stat">
+            <div class="ds-val">100M+</div>
+            <div class="ds-label">Coinbase Users</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISKS -->
+  <div class="section">
+    <div class="section-title">Risk Disclosures</div>
+
+    <div class="risk-box">
+      <h3>⚠️ Risk Factors — Please Read Carefully</h3>
+      <ul class="risk-list">
+        <li><strong>Regulatory Risk:</strong> Utility tokens remain subject to evolving regulatory frameworks in the United States and globally. Future SEC, CFTC, or international regulatory actions could affect token usability, transferability, or listing status.</li>
+        <li><strong>Market Risk:</strong> Cryptocurrency markets are highly volatile. The value of RIL may decline substantially, including to zero. Past performance of similar tokens does not predict future results.</li>
+        <li><strong>Liquidity Risk:</strong> Early-stage DEX markets may have limited depth. Large trades may experience significant price impact. Initial liquidity is not guaranteed to persist.</li>
+        <li><strong>Technology Risk:</strong> Smart contract bugs, exploits, or Base network outages could affect token operations. All contracts will be audited prior to launch, but no audit eliminates all risk.</li>
+        <li><strong>Platform Risk:</strong> The value of RIL is tied to the success of the RILBOT platform. If RILBOT fails to achieve adoption, token utility and demand may decline.</li>
+        <li><strong>Governance Risk:</strong> Token governance mechanisms may produce decisions that negatively affect some token holders. Majority token holders may vote against minority interests.</li>
+        <li><strong>Vesting Risk:</strong> Team and treasury token unlock schedules create future sell pressure that may temporarily depress token prices.</li>
+      </ul>
+    </div>
+
+    <div class="disclaimer">
+      <strong>IMPORTANT DISCLAIMER:</strong> RIL is a <strong>utility token</strong> designed to access and use services on the RILBOT platform. It is not designed, structured, or intended as a security or investment contract. Holding RIL does not represent equity in Rip It Labs, LLC and does not confer ownership rights, profit participation rights, or any right to dividends. Nothing in this document constitutes financial advice, investment advice, or a solicitation to purchase RIL tokens. Prospective token purchasers should consult with qualified legal and financial advisors before making any investment decision. <strong>This is not financial advice.</strong> The RILCOIN token is a utility token — its value derives from platform utility, not from investment expectation.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Confidential — For qualified investors only. &copy; 2026 Rip It Labs, LLC &nbsp;|&nbsp;
+  <span>RILCOIN (RIL)</span> Tokenomics Overview &nbsp;·&nbsp; tim@ripitlabs.com &nbsp;·&nbsp; ripitlabs.com &nbsp;|&nbsp;
+  This document does not constitute an offer to sell securities.
+</footer>
+
+</body>
+</html>

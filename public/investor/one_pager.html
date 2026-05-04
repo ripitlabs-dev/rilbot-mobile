@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rip It Labs — Investor One-Pager</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy:  #0f172a;
+    --blue:  #2563eb;
+    --gold:  #f59e0b;
+    --light: #f8fafc;
+    --muted: #64748b;
+    --border: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5pt;
+    line-height: 1.45;
+    color: #1e293b;
+    background: #fff;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 9pt 16pt 8pt;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo-block .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22pt;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    line-height: 1;
+  }
+  .logo-block .logo span { color: var(--gold); }
+  .logo-block .tagline {
+    font-size: 6.5pt;
+    color: #94a3b8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 2pt;
+  }
+  .contact-block {
+    text-align: right;
+    font-size: 6.5pt;
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+  .contact-block strong { color: #fff; font-size: 7pt; }
+  .contact-block a { color: var(--gold); text-decoration: none; }
+
+  /* ── BODY ───────────────────────────────────────────── */
+  .body-wrap {
+    display: flex;
+    gap: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  /* LEFT COLUMN */
+  .col-left {
+    width: 60%;
+    padding: 10pt 10pt 10pt 14pt;
+    border-right: 1pt solid var(--border);
+  }
+
+  /* RIGHT COLUMN */
+  .col-right {
+    width: 40%;
+    padding: 10pt 14pt 10pt 10pt;
+    background: var(--light);
+  }
+
+  /* ── SECTION STYLES ─────────────────────────────────── */
+  .section { margin-bottom: 9pt; }
+  .section:last-child { margin-bottom: 0; }
+
+  .section-label {
+    font-size: 5.5pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    border-bottom: 1pt solid var(--blue);
+    padding-bottom: 2pt;
+    margin-bottom: 4pt;
+  }
+
+  .section-label.gold {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  p { margin-bottom: 3pt; }
+
+  /* HOW IT WORKS flow */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 3pt;
+    flex-wrap: wrap;
+    margin: 3pt 0;
+  }
+  .flow-step {
+    background: var(--navy);
+    color: #fff;
+    font-size: 5.5pt;
+    font-weight: 500;
+    padding: 2pt 5pt;
+    border-radius: 2pt;
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    color: var(--blue);
+    font-size: 7pt;
+    font-weight: 700;
+  }
+
+  /* PRICING CARDS */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3pt;
+    margin-top: 3pt;
+  }
+  .price-card {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 3pt;
+    padding: 4pt 6pt;
+  }
+  .price-card .plan { font-size: 5.5pt; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+  .price-card .amount { font-size: 10pt; font-weight: 700; color: var(--gold); line-height: 1.2; }
+  .price-card .desc { font-size: 5pt; color: #94a3b8; margin-top: 1pt; }
+  .price-card.wide { grid-column: span 2; }
+  .price-inline {
+    display: flex;
+    gap: 3pt;
+    flex-wrap: wrap;
+    margin-top: 3pt;
+  }
+  .price-badge {
+    background: #1e293b;
+    color: var(--gold);
+    font-size: 6pt;
+    font-weight: 600;
+    padding: 2pt 5pt;
+    border-radius: 2pt;
+    border: 0.5pt solid #334155;
+  }
+
+  /* RIGHT COLUMN ELEMENTS */
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 2pt 0;
+    border-bottom: 0.5pt solid var(--border);
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 6.5pt; color: #475569; }
+  .stat-value { font-size: 8pt; font-weight: 700; color: var(--navy); }
+  .stat-value.blue { color: var(--blue); }
+  .stat-value.gold { color: var(--gold); }
+
+  /* PROJECTIONS TABLE */
+  .proj-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 6.5pt;
+    margin-top: 3pt;
+  }
+  .proj-table th {
+    background: var(--navy);
+    color: #fff;
+    padding: 3pt 5pt;
+    text-align: left;
+    font-weight: 600;
+  }
+  .proj-table td {
+    padding: 2.5pt 5pt;
+    border-bottom: 0.5pt solid var(--border);
+  }
+  .proj-table tr:nth-child(even) td { background: #f1f5f9; }
+  .proj-table td:first-child { font-weight: 700; color: var(--blue); }
+  .proj-table td:not(:first-child) { font-weight: 600; color: var(--navy); }
+
+  /* ASK BOX */
+  .ask-box {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 4pt;
+    padding: 7pt 9pt;
+    margin: 4pt 0;
+    border-left: 3pt solid var(--gold);
+  }
+  .ask-amount { font-family: 'Playfair Display', serif; font-size: 18pt; font-weight: 900; color: var(--gold); line-height: 1; }
+  .ask-sub { font-size: 5.5pt; color: #94a3b8; margin-top: 2pt; }
+  .ask-details { font-size: 6pt; color: #cbd5e1; margin-top: 3pt; }
+  .ask-details span { color: var(--gold); font-weight: 600; }
+
+  /* USE OF FUNDS */
+  .funds-list { list-style: none; margin-top: 3pt; }
+  .funds-list li {
+    display: flex;
+    align-items: center;
+    gap: 4pt;
+    padding: 1.5pt 0;
+    font-size: 6.5pt;
+  }
+  .funds-bar-wrap { flex: 1; background: #e2e8f0; border-radius: 2pt; height: 5pt; }
+  .funds-bar { background: var(--blue); border-radius: 2pt; height: 5pt; }
+  .funds-bar.gold { background: var(--gold); }
+  .funds-bar.teal { background: #0891b2; }
+  .funds-bar.purple { background: #7c3aed; }
+  .funds-bar.slate { background: #64748b; }
+  .funds-pct { font-weight: 700; color: var(--navy); width: 22pt; text-align: right; font-size: 6pt; }
+  .funds-label { width: 90pt; color: #475569; }
+  .funds-icon { width: 10pt; text-align: center; }
+
+  /* COMPETITIVE EDGE */
+  .edge-list { list-style: none; margin-top: 3pt; }
+  .edge-list li {
+    font-size: 6.5pt;
+    padding: 1.5pt 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 3pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+  }
+  .edge-list li:last-child { border-bottom: none; }
+  .edge-check { color: #16a34a; font-size: 7pt; font-weight: 700; flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: #475569;
+    font-size: 5.5pt;
+    text-align: center;
+    padding: 5pt;
+    border-top: 1pt solid #1e293b;
+  }
+  footer span { color: var(--gold); }
+
+  /* PRINT */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  @media print {
+    body { width: 210mm; min-height: 297mm; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    .no-print { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-block">
+    <div class="logo">RIP IT <span>LABS</span></div>
+    <div class="tagline">The World's Largest AI Agent Corporation</div>
+  </div>
+  <div class="contact-block">
+    <strong>Tim Cavin, CEO</strong><br>
+    <a href="mailto:tim@ripitlabs.com">tim@ripitlabs.com</a><br>
+    <a href="https://ripitlabs.com">ripitlabs.com</a>
+  </div>
+</header>
+
+<!-- BODY -->
+<div class="body-wrap">
+
+  <!-- LEFT COLUMN -->
+  <div class="col-left">
+
+    <div class="section">
+      <div class="section-label">The Problem</div>
+      <p>Every business needs expert support — legal, finance, HR, marketing, operations. Most can't afford it.</p>
+      <p><strong>33 million U.S. small businesses</strong> run without the expert team they need. Hourly attorney rates hit $400+. Consultants charge $10K+ per engagement. The gap between "Fortune 500 support" and "nothing" is enormous — and costly.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">The Solution</div>
+      <p><strong>RILBOT</strong> is an AI agent marketplace with <strong>630 specialist agents</strong> across 30+ industries. Teams of AI specialists work in parallel and deliver expert-level output in under 1 hour — for a fraction of the cost of human professionals.</p>
+      <p>Not a chatbot. Not a single AI. A coordinated ensemble of domain-trained specialists that outperforms any single generalist model.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">How It Works</div>
+      <div class="flow">
+        <div class="flow-step">User submits question</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">AI router selects specialists</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">3–6 agents analyze in parallel</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Director synthesizes plan</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Structured report delivered</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Business Model</div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="plan">Pro</div>
+          <div class="amount">$49<span style="font-size:6pt;font-weight:400;color:#94a3b8">/mo</span></div>
+          <div class="desc">500 runs/day — SMB sweet spot</div>
+        </div>
+        <div class="price-card">
+          <div class="plan">Enterprise</div>
+          <div class="amount">$299<span style="font-size:6pt;font-weight:400;color:#94a3b8">/mo</span></div>
+          <div class="desc">Unlimited runs · Priority routing</div>
+        </div>
+      </div>
+      <div class="price-inline" style="margin-top:4pt;">
+        <div class="price-badge">Dev API · $0.25/call</div>
+        <div class="price-badge">White-label · $2,000+/mo</div>
+        <div class="price-badge" style="color:#a78bfa;">RILCOIN token utility</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="col-right">
+
+    <div class="section">
+      <div class="section-label gold">By the Numbers</div>
+      <div class="stat-row"><span class="stat-label">AI Agents</span><span class="stat-value blue">630</span></div>
+      <div class="stat-row"><span class="stat-label">Industry Teams</span><span class="stat-value blue">59</span></div>
+      <div class="stat-row"><span class="stat-label">Corporate Divisions</span><span class="stat-value blue">15</span></div>
+      <div class="stat-row"><span class="stat-label">Industries Covered</span><span class="stat-value blue">30+</span></div>
+      <div class="stat-row"><span class="stat-label">Gross Margin</span><span class="stat-value gold">84%</span></div>
+      <div class="stat-row"><span class="stat-label">LTV : CAC</span><span class="stat-value gold">7.8×</span></div>
+    </div>
+
+    <div class="section">
+      <div class="section-label gold">3-Year Projections</div>
+      <table class="proj-table">
+        <thead>
+          <tr><th>Year</th><th>ARR</th><th>Users</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Y1</td><td>$450K</td><td>1,200</td></tr>
+          <tr><td>Y2</td><td>$2.8M</td><td>10,000</td></tr>
+          <tr><td>Y3</td><td>$9.5M</td><td>35,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-label gold">The Ask</div>
+      <div class="ask-box">
+        <div class="ask-amount">$1,000,000</div>
+        <div class="ask-sub">Seed Round · YC SAFE</div>
+        <div class="ask-details">Pre-money: <span>$5M</span> &nbsp;|&nbsp; Post-money: <span>$6M</span> &nbsp;|&nbsp; Runway: <span>18 months</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label gold">Use of Funds</div>
+      <ul class="funds-list">
+        <li>
+          <span class="funds-icon">🔧</span>
+          <span class="funds-label">Engineering</span>
+          <div class="funds-bar-wrap"><div class="funds-bar" style="width:40%"></div></div>
+          <span class="funds-pct">40%</span>
+        </li>
+        <li>
+          <span class="funds-icon">📣</span>
+          <span class="funds-label">Sales &amp; Marketing</span>
+          <div class="funds-bar-wrap"><div class="funds-bar gold" style="width:30%"></div></div>
+          <span class="funds-pct">30%</span>
+        </li>
+        <li>
+          <span class="funds-icon">☁️</span>
+          <span class="funds-label">Infrastructure</span>
+          <div class="funds-bar-wrap"><div class="funds-bar teal" style="width:15%"></div></div>
+          <span class="funds-pct">15%</span>
+        </li>
+        <li>
+          <span class="funds-icon">⚖️</span>
+          <span class="funds-label">Legal &amp; Compliance</span>
+          <div class="funds-bar-wrap"><div class="funds-bar purple" style="width:10%"></div></div>
+          <span class="funds-pct">10%</span>
+        </li>
+        <li>
+          <span class="funds-icon">🔩</span>
+          <span class="funds-label">Operations</span>
+          <div class="funds-bar-wrap"><div class="funds-bar slate" style="width:5%"></div></div>
+          <span class="funds-pct">5%</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label gold">Competitive Edge</div>
+      <ul class="edge-list">
+        <li><span class="edge-check">✓</span>630 pre-built agents — nobody else has this scale</li>
+        <li><span class="edge-check">✓</span>Multi-specialist team architecture</li>
+        <li><span class="edge-check">✓</span>RILCOIN token economy creates lock-in</li>
+        <li><span class="edge-check">✓</span>Agent memory + real actions (not just chat)</li>
+        <li><span class="edge-check">✓</span>No-code custom agent builder</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Confidential. For qualified investors only. &copy; 2026 Rip It Labs, LLC &nbsp;|&nbsp;
+  <span>Rip It Labs</span> &nbsp;·&nbsp; Tim Cavin, CEO &nbsp;·&nbsp;
+  <span>tim@ripitlabs.com</span> &nbsp;·&nbsp; ripitlabs.com
+</footer>
+
+</body>
+</html>
