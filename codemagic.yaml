@@ -1,0 +1,72 @@
+workflows:
+
+  # ── iOS Production Build (App Store) ─────────────────────────────────────────
+  ios-release:
+    name: RILBOT iOS Release
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.ripitlabs.rilbot
+      vars:
+        APP_STORE_CONNECT_ISSUER_ID: Encrypted(PASTE_AFTER_SETUP)
+        APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted(PASTE_AFTER_SETUP)
+        APP_STORE_CONNECT_PRIVATE_KEY: Encrypted(PASTE_AFTER_SETUP)
+      node: v20.20.0
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+      - name: Build web app
+        script: npm run build
+      - name: Sync Capacitor
+        script: npx cap sync ios
+      - name: Install CocoaPods
+        script: |
+          cd ios/App
+          pod install
+      - name: Build iOS
+        script: |
+          xcode-project build-ipa \
+            --workspace ios/App/App.xcworkspace \
+            --scheme App
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+
+  # ── Android Production Build (Google Play) ───────────────────────────────────
+  android-release:
+    name: RILBOT Android Release
+    max_build_duration: 45
+    instance_type: linux_x2
+    environment:
+      android_signing:
+        - rilbot_keystore
+      vars:
+        PACKAGE_NAME: com.ripitlabs.rilbot
+      node: v20.20.0
+      java: 17
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+      - name: Build web app
+        script: npm run build
+      - name: Sync Capacitor
+        script: npx cap sync android
+      - name: Build Android AAB (Play Store)
+        script: |
+          cd android
+          ./gradlew bundleRelease
+    artifacts:
+      - android/app/build/outputs/bundle/release/*.aab
+      - android/app/build/outputs/apk/release/*.apk
+    publishing:
+      google_play:
+        credentials: Encrypted(PASTE_AFTER_SETUP)
+        track: internal
